@@ -2,8 +2,53 @@
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Visual Novel SceneMaker</title>
+      <title>Scene Editor</title>
+      <link rel="stylesheet" href="style.css" />
    </head>
-   <body></body>
+   <body>
+      <div id="app">
+         <div id="scene-container">
+            <div id="scene">
+               <img id="bg" />
+               <img id="char-body" />
+               <img id="char-clothes" />
+               <img id="char-emotion" />
+            </div>
+         </div>
+
+         <div id="controls">
+            <div class="block">
+               <h3>Фон</h3>
+               <button onclick="setBackground('bg1.png')">BG 1</button>
+               <button onclick="setBackground('bg2.jpg')">BG 2</button>
+               <br />
+               Blur: <input type="range" min="0" max="15" value="5" oninput="setBlur(this.value)" />
+            </div>
+
+            <div class="block">
+               <h3>Персонаж</h3>
+               <button onclick="loadCharacter('girl')">Girl</button>
+            </div>
+
+            <div class="block">
+               <h3>Одежда</h3>
+               <button onclick="setClothes('dress.png')">Dress</button>
+               <button onclick="setClothes('casual.png')">Casual</button>
+            </div>
+
+            <div class="block">
+               <h3>Эмоции</h3>
+               <button onclick="setEmotion('happy.png')">Happy</button>
+               <button onclick="setEmotion('sad.png')">Sad</button>
+            </div>
+
+            <div class="block">
+               <button onclick="exportImage()">📸 Export</button>
+            </div>
+         </div>
+      </div>
+
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+      <script src="script.js"></script>
+   </body>
 </html>
