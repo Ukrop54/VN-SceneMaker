@@ -12,8 +12,6 @@ function loadCharacter(name) {
    currentCharacter = name;
 
    document.getElementById("char-body").src = `assets/characters/${name}/body.png`;
-
-   // сброс
    document.getElementById("char-clothes").src = "";
    document.getElementById("char-emotion").src = "";
 }

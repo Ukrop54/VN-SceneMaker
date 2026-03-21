@@ -4,49 +4,133 @@
       <meta charset="UTF-8" />
       <title>Scene Editor</title>
       <link rel="stylesheet" href="style.css" />
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+         crossorigin="anonymous"
+      />
    </head>
    <body>
-      <div id="app">
-         <div id="scene-container">
-            <div id="scene">
-               <img id="bg" />
-               <img id="char-body" />
-               <img id="char-clothes" />
-               <img id="char-emotion" />
+      <div class="container">
+         <div id="app">
+            <div id="scene-container">
+               <div id="scene" style="width: 100%">
+                  <img id="bg" />
+                  <img id="char-body" />
+                  <img id="char-clothes" />
+                  <img id="char-emotion" />
+               </div>
             </div>
          </div>
 
-         <div id="controls">
-            <div class="block">
-               <h3>Фон</h3>
-               <button onclick="setBackground('bg1.png')">BG 1</button>
-               <button onclick="setBackground('bg2.jpg')">BG 2</button>
-               <br />
-               Blur: <input type="range" min="0" max="15" value="5" oninput="setBlur(this.value)" />
+         <!-- <div id="controls"> -->
+         <!-- <div class="block">
+                  <h3>Фон</h3>
+                  <button onclick="setBackground('bg1.png')">BG 1</button>
+                  <button onclick="setBackground('bg2.jpg')">BG 2</button>
+                  <br />
+                  Blur: <input type="range" min="0" max="15" value="5" oninput="setBlur(this.value)" />
+               </div>
+   
+               <div class="block">
+                  <h3>Персонаж</h3>
+                  <button onclick="loadCharacter('girl')">Girl</button>
+               </div>
+   
+               <div class="block">
+                  <h3>Одежда</h3>
+                  <button onclick="setClothes('dress.png')">Dress</button>
+                  <button onclick="setClothes('casual.png')">Casual</button>
+               </div>
+   
+               <div class="block">
+                  <h3>Эмоции</h3>
+                  <button onclick="setEmotion('happy.png')">Happy</button>
+                  <button onclick="setEmotion('sad.png')">Sad</button>
+               </div>
+   
+               <div class="block">
+                  <button onclick="exportImage()">📸 Export</button>
+               </div> -->
+         <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+               <button
+                  class="nav-link active"
+                  id="home-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#home"
+                  type="button"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+               >
+                  Background
+               </button>
+            </li>
+            <li class="nav-item" role="presentation">
+               <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+               >
+                  Character
+               </button>
+            </li>
+         </ul>
+         <div class="tab-content" id="PreviewTabs">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+               <div class="row row-cols-3">
+                  <div class="col">
+                     <div id="scene-container" data-bs-toggle="modal" data-bs-target="#bgchoosemodal">
+                        <div class="PreviewScene" id="scene" style="width: 100%">
+                           <img id="bg" />
+                           <p class="text-center" style="position: relative; top: 50%">Click Me</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col"></div>
+               </div>
             </div>
-
-            <div class="block">
-               <h3>Персонаж</h3>
-               <button onclick="loadCharacter('girl')">Girl</button>
-            </div>
-
-            <div class="block">
-               <h3>Одежда</h3>
-               <button onclick="setClothes('dress.png')">Dress</button>
-               <button onclick="setClothes('casual.png')">Casual</button>
-            </div>
-
-            <div class="block">
-               <h3>Эмоции</h3>
-               <button onclick="setEmotion('happy.png')">Happy</button>
-               <button onclick="setEmotion('sad.png')">Sad</button>
-            </div>
-
-            <div class="block">
-               <button onclick="exportImage()">📸 Export</button>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">zala</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">ee</div>
+         </div>
+         <div class="modal fade" id="bgchoosemodal" tabindex="-1" aria-labelledby="BgModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h1 class="modal-title fs-5" id="BgModalLabel">Modal title</h1>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body p-4 py-5 p-md-5">
+                     <div class="text-center">
+                        <h3>Choose Background</h3>
+                        <a href="#" style="position: relative; bottom: 15px">or load custom</a>
+                     </div>
+                     <div class="bg-gallery">
+                        <div class="row row-cols-3">
+                           <div class="col"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
+         <br />
+         <br />
       </div>
+
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+         crossorigin="anonymous"
+      ></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
       <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
       <script src="script.js"></script>
