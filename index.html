@@ -10,6 +10,7 @@
          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
          crossorigin="anonymous"
       />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
    </head>
    <body>
       <div class="container">
@@ -23,8 +24,8 @@
                </div>
             </div>
          </div>
-         <div class="bg-interactions row row-cols-3">
-            <div class="col">
+         <div class="bg-interactions row row-cols-6">
+            <div class="col-sm-4">
                <div class="bgchoosecontainer">
                   <button type="button" data-bs-toggle="modal" data-bs-target="#bgchoosemodal" class="btn btn-primary" style="width: 100%">
                      Choose Background
@@ -58,28 +59,29 @@
             </div>
             <div class="col">
                <div class="bgcorrections">
-                  <div class="row row-cols-2">
-                     <div class="col">
-                        <select class="form-select" onchange="setCorrection(this.value)">
-                           <option value="#" selected disabled>Color Correction:</option>
-                           <option value="none">None</option>
-                           <option value="sepia">Sepia</option>
-                           <option value="oldphoto">Old Photo</option>
-                           <option value="rain">Rain</option>
-                           <option value="grayed">Grayed</option>
-                           <option value="negative">Negative</option>
-                           <!-- <option value="brightness">Brightness</option>
+                  <select class="form-select" onchange="setCorrection(this.value)">
+                     <option value="#" selected disabled>Color Correction:</option>
+                     <option value="none">None</option>
+                     <option value="sepia">Sepia</option>
+                     <option value="oldphoto">Old Photo</option>
+                     <option value="rain">Rain</option>
+                     <option value="grayed">Grayed</option>
+                     <option value="negative">Negative</option>
+                     <!-- <option value="brightness">Brightness</option>
                      <option value="contrast">Contrast</option>
                      <option value="saturation">Saturation</option> -->
-                        </select>
-                     </div>
-                     <div class="col">
-                        <div class="bgeffects">
-                           Blur:
-                           <input type="range" class="form-range" min="0" max="15" value="0" oninput="setBlur(this.value)" />
-                        </div>
-                     </div>
-                  </div>
+                  </select>
+               </div>
+            </div>
+            <div class="col">
+               <div class="bgeffects">
+                  Blur:
+                  <input type="range" class="form-range" min="0" max="15" value="0" oninput="setBlur(this.value)" />
+               </div>
+            </div>
+            <div class="col">
+               <div class="export">
+                  <button class="btn btn-success" style="width: 100%" onclick="exportImage()">📸 Export</button>
                </div>
             </div>
          </div>
@@ -113,7 +115,7 @@
                <div class="block">
                   <button onclick="exportImage()">📸 Export</button>
                </div> -->
-         <div class="character-interactions">
+         <div class="character-interactions my-5">
             <div class="row row-cols-3">
                <div class="col">
                   <div id="scene-container" data-bs-toggle="modal" data-bs-target="#chchoosemodal">
@@ -123,7 +125,92 @@
                      </div>
                   </div>
                </div>
-               <div class="col"></div>
+               <div class="col">
+                  <div class="row row-cols-2">
+                     <div class="col-sm-8">
+                        <h1 class="sprmanipulations-maintitle">Sprite Time</h1>
+                     </div>
+                     <div class="col-sm-4">
+                        <h1>
+                           <i
+                              class="bi bi-chevron-up sprmanipulations-maintitle"
+                              style="position: relative; left: 20%; cursor: pointer"
+                              id="show-sprtime"
+                           ></i>
+                        </h1>
+                     </div>
+                  </div>
+
+                  <div class="sprite-time" id="sprite-time">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="sunset" id="sunset" checked />
+                        <label class="form-check-label" for="sunset">Sunset</label>
+                     </div>
+
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="day" id="day" />
+                        <label class="form-check-label" for="day">Day</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="night" id="night" />
+                        <label class="form-check-label" for="night">Night</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="epilogue" id="epilogue" />
+                        <label class="form-check-label" for="epilogue">Epilogue</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="desat" id="desat" />
+                        <label class="form-check-label" for="desat">Desaturated</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="rain" id="rain" />
+                        <label class="form-check-label" for="rain">Rain</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="sepia" id="sepia" />
+                        <label class="form-check-label" for="sepia">Sepia</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritetime" value="noir" id="noir" />
+                        <label class="form-check-label" for="noir">Noir</label>
+                     </div>
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="row row-cols-2">
+                     <div class="col-sm-8">
+                        <h1 class="sprmanipulations-maintitle">Sprite Decoration</h1>
+                     </div>
+                     <div class="col-sm-4">
+                        <h1>
+                           <i
+                              class="bi bi-chevron-up sprmanipulations-maintitle"
+                              style="position: relative; left: 20%; cursor: pointer"
+                              id="show-sprdec"
+                           ></i>
+                        </h1>
+                     </div>
+                  </div>
+                  <div id="sprite-decoration">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritedecoration" value="none" id="none" checked />
+                        <label class="form-check-label" for="none">None</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritedecoration" value="shade" id="shade" />
+                        <label class="form-check-label" for="shade">Shade</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritedecoration" value="fire" id="fire" />
+                        <label class="form-check-label" for="fire">Fire</label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="spritedecoration" value="dream" id="dream" />
+                        <label class="form-check-label" for="dream">Dream</label>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
          <div class="modal fade" id="chchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
@@ -172,5 +259,6 @@
 
       <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
       <script src="script.js"></script>
+      <script src="scenescr.js"></script>
    </body>
 </html>
