@@ -33,10 +33,54 @@
             </div>
 
             <div class="col">
-               <div class="bgweather">...</div>
+               <div class="bgweather">
+                  <select class="form-select" onchange="setWeather(this.value)">
+                     <option value="#" selected disabled>Weather:</option>
+                     <option value="none">None</option>
+                     <optgroup label="Rain effects">
+                        <option value="lrain">Light</option>
+                        <option value="mrain">Moderate</option>
+                        <option value="hrain">Heavy</option>
+                     </optgroup>
+                     <optgroup label="Snow effects">
+                        <option value="lsnow">Light</option>
+                        <option value="msnow">Moderate</option>
+                        <option value="hsnow">Heavy</option>
+                     </optgroup>
+                     <!-- <option value="dadw">
+                        <select name="#" id="dawdwd">
+                           <option value="da"></option>
+                           <option value="snow">Snow</option>
+                        </select>
+                     </option> -->
+                  </select>
+               </div>
             </div>
             <div class="col">
-               <div class="bgeffects">Blur: <input type="range" class="form-range" min="0" max="15" value="0" oninput="setBlur(this.value)" /></div>
+               <div class="bgcorrections">
+                  <div class="row row-cols-2">
+                     <div class="col">
+                        <select class="form-select" onchange="setCorrection(this.value)">
+                           <option value="#" selected disabled>Color Correction:</option>
+                           <option value="none">None</option>
+                           <option value="sepia">Sepia</option>
+                           <option value="oldphoto">Old Photo</option>
+                           <option value="rain">Rain</option>
+                           <option value="grayed">Grayed</option>
+                           <option value="negative">Negative</option>
+                           <!-- <option value="brightness">Brightness</option>
+                     <option value="contrast">Contrast</option>
+                     <option value="saturation">Saturation</option> -->
+                        </select>
+                     </div>
+                     <div class="col">
+                        <div class="bgeffects">
+                           Blur:
+                           <input type="range" class="form-range" min="0" max="15" value="0" oninput="setBlur(this.value)" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
 
