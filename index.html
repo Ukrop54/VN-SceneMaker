@@ -23,6 +23,22 @@
                </div>
             </div>
          </div>
+         <div class="bg-interactions row row-cols-3">
+            <div class="col">
+               <div class="bgchoosecontainer">
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#bgchoosemodal" class="btn btn-primary" style="width: 100%">
+                     Choose Background
+                  </button>
+               </div>
+            </div>
+
+            <div class="col">
+               <div class="bgweather">...</div>
+            </div>
+            <div class="col">
+               <div class="bgeffects">Blur: <input type="range" class="form-range" min="0" max="15" value="0" oninput="setBlur(this.value)" /></div>
+            </div>
+         </div>
 
          <!-- <div id="controls"> -->
          <!-- <div class="block">
@@ -53,70 +69,48 @@
                <div class="block">
                   <button onclick="exportImage()">📸 Export</button>
                </div> -->
-         <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item" role="presentation">
-               <button
-                  class="nav-link active"
-                  id="home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#home"
-                  type="button"
-                  role="tab"
-                  aria-controls="home"
-                  aria-selected="true"
-               >
-                  Background
-               </button>
-            </li>
-            <li class="nav-item" role="presentation">
-               <button
-                  class="nav-link"
-                  id="profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="profile"
-                  aria-selected="false"
-               >
-                  Character
-               </button>
-            </li>
-         </ul>
-         <div class="tab-content" id="PreviewTabs">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-               <div class="row row-cols-3">
-                  <div class="col">
-                     <div id="scene-container" data-bs-toggle="modal" data-bs-target="#bgchoosemodal">
-                        <div class="PreviewScene" id="scene" style="width: 100%">
-                           <img id="bg" />
-                           <p class="text-center" style="position: relative; top: 50%">Click Me</p>
-                        </div>
+         <div class="character-interactions">
+            <div class="row row-cols-3">
+               <div class="col">
+                  <div id="scene-container" data-bs-toggle="modal" data-bs-target="#chchoosemodal">
+                     <div class="PreviewScene" id="scene" style="width: 100%">
+                        <img id="bg" />
+                        <p class="text-center" style="position: relative; top: 50%">Click Me</p>
                      </div>
                   </div>
-                  <div class="col"></div>
                </div>
+               <div class="col"></div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">zala</div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">ee</div>
          </div>
-         <div class="modal fade" id="bgchoosemodal" tabindex="-1" aria-labelledby="BgModalLabel" aria-hidden="true">
+         <div class="modal fade" id="chchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="BgModalLabel">Modal title</h1>
+                     <h1 class="modal-title fs-5" id="ChModalLabel">
+                        Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Character
+                     </h1>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body p-4 py-5 p-md-5"></div>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="bgchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h1 class="modal-title fs-5" id="BgModalLabel">
+                        Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Background
+                     </h1>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body p-4 py-5 p-md-5">
-                     <div class="text-center">
-                        <h3>Choose Background</h3>
-                        <a href="#" style="position: relative; bottom: 15px">or load custom</a>
-                     </div>
+                     <!-- <div class="text-center"></div>
                      <div class="bg-gallery">
                         <div class="row row-cols-3">
                            <div class="col"></div>
                         </div>
-                     </div>
+                     </div> -->
                   </div>
                </div>
             </div>
