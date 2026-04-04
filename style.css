@@ -121,7 +121,5 @@ body {
 
 .bg-interactions,
 .character-interactions {
-   /* margin-top: 4px;
-      margin-bottom: 8px; */
    backdrop-filter: blur(10px);
 }

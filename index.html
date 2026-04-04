@@ -26,15 +26,23 @@
                      </div>
                   </div>
                </div>
-               <div class="bg-interactions row g-2">
-                  <div class="col-sm-4">
-                     <div class="bgchoosecontainer">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#bgchoosemodal" class="btn btn-primary" style="width: 100%">
+               <div class="bg-interactions row row-cols-6">
+                  <div class="col">
+                     <div>
+                        <button
+                           type="button"
+                           data-bs-toggle="modal"
+                           data-bs-target="#bgchoosemodal"
+                           class="btn btn-primary"
+                           style="width: 100%; margin: 5% auto"
+                        >
                            Choose Background
                         </button>
                      </div>
                   </div>
-
+                  <div class="col">
+                     <button type="button" class="btn btn-primary" style="width: 100%; margin: 5% auto">Add Character</button>
+                  </div>
                   <div class="col">
                      <div class="bgweather">
                         <select class="form-select" onchange="setWeather(this.value)">
@@ -83,7 +91,7 @@
                   </div>
                   <div class="col">
                      <div class="export">
-                        <button class="btn btn-success" style="width: 100%" onclick="exportImage()">📸 Export</button>
+                        <button class="btn btn-success" style="width: 100%; margin: 5% auto" onclick="exportImage()">📸 Export</button>
                      </div>
                   </div>
                </div>
