@@ -23,3 +23,14 @@ $("#sprstyle-select-header").on("click", function () {
    // $("#sprstylemaindiv").removeClass("sprstylemaindiv1");
    $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
 });
+
+const radios = document.querySelectorAll('input[name="spritetime"]');
+const image = document.getElementById("previewImage");
+
+radios.forEach((radio) => {
+   radio.addEventListener("change", () => {
+      image.className = "img-fluid rounded";
+
+      image.classList.add("filter-" + radio.value);
+   });
+});

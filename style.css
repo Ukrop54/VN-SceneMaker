@@ -55,7 +55,7 @@ body {
 }
 
 .sprite-time {
-   padding: 2%;
+   padding: 5%;
 }
 
 .sprmanipulations-maintitle {
@@ -157,4 +157,42 @@ body {
 .bg-interactions,
 .character-interactions {
    backdrop-filter: blur(10px);
+}
+
+#previewImage {
+   transition: 0.3s ease;
+}
+
+.filter-sunset {
+   filter: sepia(0.4) saturate(1.5) hue-rotate(-20deg);
+}
+.filter-day {
+   filter: none;
+}
+.filter-night {
+   filter: brightness(0.5) contrast(1.2);
+}
+.filter-epilogue {
+   filter: grayscale(0.6) brightness(0.8);
+}
+.filter-desat {
+   filter: grayscale(1);
+}
+.filter-rain {
+   filter: brightness(0.7) saturate(0.8);
+}
+.filter-sepia {
+   filter: sepia(1);
+}
+.filter-noir {
+   filter: grayscale(1) contrast(1.4);
+}
+.filter-shade {
+   filter: brightness(0.6);
+}
+.filter-fire {
+   filter: saturate(2) hue-rotate(-30deg);
+}
+.filter-dream {
+   filter: blur(2px) brightness(1.2);
 }
