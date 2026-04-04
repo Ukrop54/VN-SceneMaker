@@ -5,28 +5,64 @@ body {
    color: white;
 }
 
-.sprmanipulations-maintitle {
+.mainbox {
+   border: 1px solid #a4a4a4;
+   border-radius: 14px;
+   margin: 2% auto;
+   padding: 2%;
    text-wrap: nowrap;
-   margin: 0;
-   padding: 0;
+}
+
+.bgzone,
+.chzone {
+   border: 1px solid #a4a4a4;
+   border-radius: 14px;
+   padding: 1%;
+}
+.chzone {
+   margin-top: 2%;
+}
+
+.sprmanipulations-maintitle {
+   display: flex;
+   align-items: center;
+   height: 100%;
+}
+
+#show-sprtime,
+#show-sprdec {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.form-check {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   margin-bottom: 4px;
+}
+
+.bgweather,
+.bgcorrections,
+.bgeffects {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   height: 100%;
 }
 
 #app {
    display: flex;
    flex-direction: column;
-   margin-top: 5%;
-   margin-bottom: 5%;
-   padding: 0;
+   margin-bottom: 2%;
 }
 
-.container {
-   margin: 0;
-   padding: 0;
-}
-
-.bg-interactions {
-   margin: 4px 0 6px 0;
-}
+/* .sprman {
+   border: 1px solid #a4a4a4;
+   border-radius: 14px;
+   padding: 12px;
+} */
 
 #scene-container {
    /* flex: 1;
@@ -46,23 +82,9 @@ body {
    max-width: 1280px;
 
    overflow: hidden;
-   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
-}
-
-#bgscene {
-   position: relative;
-   aspect-ratio: 16 / 9;
-   width: 100%;
-   overflow: hidden;
-   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 }
 
 .PreviewScene {
-   position: relative;
-   aspect-ratio: 16 / 9;
-   overflow: hidden;
-   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
-   margin-top: 20px;
    cursor: pointer;
 }
 
@@ -75,7 +97,7 @@ body {
 
 #char-body,
 #char-clothes,
-#char-emotio {
+#char-emotion {
    object-fit: contain;
    position: absolute;
    bottom: 0;
@@ -85,28 +107,21 @@ body {
    width: auto;
 }
 
-.ChooseModal {
-   width: 100vh;
-}
-
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
    .container {
       padding: 0 6px;
    }
+} */
 
-   #scene-container,
-   .PreviewScene {
-      margin: 6px 0;
-      width: 100%;
-   }
+#scene-container,
+.PreviewScene {
+   /* margin: 6px 0; */
+   width: 100%;
+}
 
-   .bg-interactions {
-      margin-top: 4px;
-      margin-bottom: 8px;
-   }
-
-   .character-interactions {
-      margin-top: 4px;
-      margin-bottom: 8px;
-   }
+.bg-interactions,
+.character-interactions {
+   /* margin-top: 4px;
+      margin-bottom: 8px; */
+   backdrop-filter: blur(10px);
 }
