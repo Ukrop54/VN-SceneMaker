@@ -5,6 +5,37 @@ body {
    color: white;
 }
 
+.sprstylemaindiv1 {
+   height: 2.3em;
+}
+
+.sprstylemaindiv2 {
+   height: 100%;
+}
+
+.sprstyle-select-box {
+   border: 1px solid #a5a5a55d;
+   border-radius: 7px;
+   width: 100%;
+   transition: all 0.3s ease;
+   height: 2.3em;
+}
+
+.sprstyle-select-header {
+   /* padding: 10px; */
+   padding: 1% 4%;
+   cursor: pointer;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.sprstyle-content {
+   border: 1px solid #a5a5a55d;
+   border-top: 0;
+   border-radius: 0 0 7px 7px;
+}
+
 .mainbox {
    border: 1px solid #a4a4a4;
    border-radius: 14px;
@@ -21,6 +52,10 @@ body {
 }
 .chzone {
    margin-top: 2%;
+}
+
+.sprite-time {
+   padding: 2%;
 }
 
 .sprmanipulations-maintitle {
