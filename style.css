@@ -180,6 +180,13 @@ body {
    }
 } */
 
+.explorer-icon {
+   width: 24px;
+   height: 24px;
+   margin-right: 8px;
+   vertical-align: middle;
+}
+
 #scene-container,
 .PreviewScene {
    /* margin: 6px 0; */

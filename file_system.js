@@ -35,6 +35,14 @@ function render() {
       Object.keys(FS[state.game]).forEach((mod) => {
          addItem(container, "🧩 " + mod, () => {
             state.mod = mod;
+            step = "position";
+            render();
+         });
+      });
+   } else if (step === "position") {
+      Object.keys(FS[state.game]).forEach((position) => {
+         addItem(container, "🏃 " + position, () => {
+            state.position = position;
             step = "character";
             render();
          });
@@ -84,6 +92,7 @@ function addItem(container, text, click) {
    el.className = "explorer-item";
    el.innerHTML = text;
    el.onclick = click;
+
    container.appendChild(el);
 }
 
@@ -106,7 +115,8 @@ function back(container) {
    el.innerHTML = "⬅ Назад";
    el.onclick = () => {
       if (step === "mod") step = "game";
-      else if (step === "character") step = "mod";
+      else if (step === "position") step = "mod";
+      else if (step === "character") step = "position";
       else if (step === "clothes") step = "character";
       else if (step === "emotion") step = "clothes";
       else if (step === "accessory") step = "emotion";
