@@ -11,7 +11,25 @@
          crossorigin="anonymous"
       />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-      <style></style>
+      <style>
+         .explorer {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 10px;
+         }
+
+         .explorer-item {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+         }
+
+         .explorer-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+         }
+      </style>
    </head>
    <body>
       <div class="container">
@@ -24,6 +42,7 @@
                         <img id="char-body" />
                         <img id="char-clothes" />
                         <img id="char-emotion" />
+                        <img id="char-accessory" />
                      </div>
                   </div>
                </div>
@@ -125,8 +144,7 @@
                <div class="row">
                   <div class="col">
                      <div id="scene-container" data-bs-toggle="modal" data-bs-target="#chchoosemodal">
-                        <div class="PreviewScene" id="scene" style="width: 100%; aspect-ratio: 0.83 / 1">
-                           <img id="bg" />
+                        <div class="PreviewScene" id="scene" style="width: 100%; aspect-ratio: 0.83 / 1; border: 1px solid #ccc">
                            <p class="text-center" style="position: relative; top: 50%">Click Me</p>
                         </div>
                      </div>
@@ -159,9 +177,6 @@
                                  <i class="bi bi-chevron-down" id="show-sprstyle"></i>
                               </div>
                               <div class="sprstyle-content" id="sprstyle-content" style="display: none">
-                                 <!-- <div class="p-2">Опция 1</div>
-                                 <div class="p-2">Опция 2</div>
-                                 <div class="p-2">Опция 3</div> -->
                                  <div class="row">
                                     <div class="col">
                                        <div class="sprite-time" id="sprite-time">
@@ -233,7 +248,7 @@
                         </div>
 
                         <div class="textstylediv" id="sprite-style" style="display: none"></div>
-                        <!-- </div> -->
+
                         <div class="col">
                            <div class="chpositionselect">
                               <select class="form-select" onchange="setCharPos(this.value)">
@@ -247,97 +262,6 @@
                         </div>
                      </div>
                   </div>
-                  <!-- <div class="col sprman">
-                     <div class="row row-cols-2">
-                        <div class="col-sm-8">
-                           <h1 class="sprmanipulations-maintitle">Sprite Time</h1>
-                        </div>
-                        <div class="col-sm-4">
-                           <h1>
-                              <i class="bi bi-chevron-up" style="position: relative; left: 20%; cursor: pointer" id="show-sprtime"></i>
-                           </h1>
-                        </div>
-                     </div>
-
-                     <div class="sprite-time" id="sprite-time">
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="sunset" id="sunset" checked />
-                           <label class="form-check-label" for="sunset">Sunset</label>
-                        </div>
-
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="day" id="day" />
-                           <label class="form-check-label" for="day">Day</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="night" id="night" />
-                           <label class="form-check-label" for="night">Night</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="epilogue" id="epilogue" />
-                           <label class="form-check-label" for="epilogue">Epilogue</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="desat" id="desat" />
-                           <label class="form-check-label" for="desat">Desaturated</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="rain" id="rain" />
-                           <label class="form-check-label" for="rain">Rain</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="sepia" id="sepia" />
-                           <label class="form-check-label" for="sepia">Sepia</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritetime" value="noir" id="noir" />
-                           <label class="form-check-label" for="noir">Noir</label>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col sprman">
-                     <div class="row row-cols-2">
-                        <div class="col-sm-8">
-                           <h1 class="sprmanipulations-maintitle">Sprite Decoration</h1>
-                        </div>
-                        <div class="col-sm-4">
-                           <h1>
-                              <i class="bi bi-chevron-up" style="position: relative; left: 20%; cursor: pointer" id="show-sprdec"></i>
-                           </h1>
-                        </div>
-                     </div>
-                     <div id="sprite-decoration">
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritedecoration" value="none" id="none" checked />
-                           <label class="form-check-label" for="none">None</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritedecoration" value="shade" id="shade" />
-                           <label class="form-check-label" for="shade">Shade</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritedecoration" value="fire" id="fire" />
-                           <label class="form-check-label" for="fire">Fire</label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="spritedecoration" value="dream" id="dream" />
-                           <label class="form-check-label" for="dream">Dream</label>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
-            </div>
-            <div class="modal fade" id="chchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
-               <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ChModalLabel">
-                           Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Character
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                     </div>
-                     <div class="modal-body p-4 py-5 p-md-5"></div>
-                  </div>
                </div>
             </div>
             <div class="modal fade" id="bgchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
@@ -350,6 +274,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      </div>
                      <div class="modal-body p-4 py-5 p-md-5">
+                        <div class="explorer" id="background-explorer"></div>
                         <!-- <div class="text-center"></div>
                      <div class="bg-gallery">
                         <div class="row row-cols-3">
@@ -360,6 +285,29 @@
                   </div>
                </div>
             </div>
+
+            <div class="modal fade" id="chchoosemodal" tabindex="-1" aria-labelledby="ChModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ChModalLabel">
+                           Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Character
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body p-4 py-5 p-md-5">
+                        <div class="explorer" id="sprite-explorer"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="export-scene">
+               <img id="export-bg" />
+               <img id="export-body" />
+               <img id="export-clothes" />
+               <img id="export-emotion" />
+               <img id="export-accessory" />
+            </div>
          </div>
       </div>
       <script
@@ -368,6 +316,7 @@
          crossorigin="anonymous"
       ></script>
       <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+      <script src="file_system.js"></script>
 
       <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
       <script src="script.js"></script>

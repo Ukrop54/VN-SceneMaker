@@ -24,10 +24,39 @@ function setEmotion(file) {
    document.getElementById("char-emotion").src = `assets/characters/${currentCharacter}/emotions/${file}`;
 }
 
-function exportImage() {
-   const scene = document.querySelector("#scene");
+function syncExportScene() {
+   document.getElementById("export-bg").src = document.getElementById("bg").src;
 
-   html2canvas(scene, {
+   document.getElementById("export-body").src = document.getElementById("char-body").src;
+
+   document.getElementById("export-clothes").src = document.getElementById("char-clothes").src;
+
+   document.getElementById("export-emotion").src = document.getElementById("char-emotion").src;
+
+   document.getElementById("export-accessory").src = document.getElementById("char-accessory").src;
+}
+
+function copyLayer(fromId, toId) {
+   const from = document.getElementById(fromId);
+   const to = document.getElementById(toId);
+
+   if (from.src && from.src !== window.location.href) {
+      to.src = from.src;
+      to.style.display = "block";
+   } else {
+      to.style.display = "none"; // ❗ ключ
+   }
+}
+
+function clearLayer(id) {
+   const el = document.getElementById(id);
+   el.src = "";
+}
+
+function exportImage() {
+   const scene = syncExportScene();
+
+   html2canvas(document.getElementById("export-scene"), {
       width: 1280,
       height: 720,
       scale: 2,
