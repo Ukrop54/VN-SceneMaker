@@ -171,6 +171,20 @@
                                     id="show-sprstyle"
                                  ></i> -->
                         <div class="col">
+                           <div class="sprite-editor" id="body-editor-div">
+                              <div class="sprite-editor-header" id="body-editor">
+                                 <span>Body</span>
+                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                              </div>
+                              <div class="sprite-editor-content" style="display: none"></div>
+                           </div>
+                           <div class="sprite-editor" id="clothes-editor-div" style="margin-bottom: 25%">
+                              <div class="sprite-editor-header" id="clothes-editor">
+                                 <span>Clothes</span>
+                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                              </div>
+                              <div class="sprite-editor-content" style="display: none"></div>
+                           </div>
                            <div class="sprstyle-select-box">
                               <div class="sprstyle-select-header" id="sprstyle-select-header">
                                  <span>Sprite Style</span>
@@ -247,9 +261,22 @@
                            </div>
                         </div>
 
-                        <div class="textstylediv" id="sprite-style" style="display: none"></div>
-
                         <div class="col">
+                           <div class="textstylediv" id="sprite-style" style="display: none"></div>
+                           <div class="sprite-editor" id="emotion-editor-div">
+                              <div class="sprite-editor-header" id="emotion-editor">
+                                 <span>Emotion</span>
+                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                              </div>
+                              <div class="sprite-editor-content" style="display: none"></div>
+                           </div>
+                           <div class="sprite-editor" id="animation-editor-div" style="margin-bottom: 25%">
+                              <div class="sprite-editor-header" id="animation-editor">
+                                 <span>Animation</span>
+                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                              </div>
+                              <div class="sprite-editor-content" style="display: none"></div>
+                           </div>
                            <div class="chpositionselect">
                               <select class="form-select" onchange="setCharPos(this.value)">
                                  <option value="left">Left</option>

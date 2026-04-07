@@ -13,15 +13,18 @@ body {
    height: 100%;
 }
 
-.sprstyle-select-box {
+.sprstyle-select-box,
+.sprite-editor {
    border: 1px solid #a5a5a55d;
    border-radius: 7px;
    width: 100%;
    transition: all 0.3s ease;
    height: 2.3em;
+   margin-bottom: 1%;
 }
 
-.sprstyle-select-header {
+.sprstyle-select-header,
+.sprite-editor-header {
    /* padding: 10px; */
    padding: 1% 4%;
    cursor: pointer;
@@ -30,7 +33,8 @@ body {
    align-items: center;
 }
 
-.sprstyle-content {
+.sprstyle-content,
+.sprite-editor-content {
    border: 1px solid #a5a5a55d;
    border-top: 0;
    border-radius: 0 0 7px 7px;

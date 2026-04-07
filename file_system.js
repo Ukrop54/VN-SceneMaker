@@ -6,13 +6,6 @@ fetch("/api/characters")
       FS = data;
    });
 
-fetch("/api/characters")
-   .then((res) => res.json())
-   .then((data) => {
-      FS = data;
-      console.log("FS:", FS); // 👈 ВОТ ЭТО
-   });
-
 let state = {
    game: "",
    mod: "",
@@ -20,6 +13,36 @@ let state = {
    character: "",
    bodyType: "",
 };
+
+// let currentCharacter = {
+//    game: null,
+//    mod: null,
+//    position: null,
+//    name: null,
+//    path: null,
+
+//    body: null,
+//    clothes: null,
+//    emotion: null,
+//    accessory: null,
+// };
+
+function selectCharacter(game, mod, position, char) {
+   currentCharacter = {
+      game,
+      mod,
+      position,
+      name: char,
+      path: `assets/characters/${game}/${mod}/${position}/${char}/`,
+
+      body: null,
+      clothes: null,
+      emotion: null,
+      accessory: null,
+   };
+
+   loadCharacterFiles();
+}
 
 document.getElementById("chchoosemodal").addEventListener("shown.bs.modal", () => {
    step = "game";
@@ -78,6 +101,9 @@ function render() {
       });
    } else if (step === "clothes") {
       const data = splitFiles();
+      addItem(container, "❌ None", () => {
+         clearLayer("char-clothes");
+      });
 
       data.clothes.forEach((file) => {
          addItem(container, "👕 " + file, () => {
@@ -88,6 +114,9 @@ function render() {
       next(container, "emotion");
    } else if (step === "emotion") {
       const data = splitFiles();
+      addItem(container, "❌ None", () => {
+         clearLayer("char-emotion");
+      });
 
       data.emotions.forEach((file) => {
          addItem(container, "😊 " + file, () => {
@@ -98,6 +127,9 @@ function render() {
       next(container, "accessory");
    } else if (step === "accessory") {
       const data = splitFiles();
+      addItem(container, "❌ None", () => {
+         clearLayer("char-accessory");
+      });
 
       data.accessories.forEach((file) => {
          addItem(container, "🕶 " + file, () => {
@@ -236,13 +268,94 @@ function back(container) {
    container.prepend(el);
 }
 
-// function loadBody() {
-//    const findbody = str.includes("body.png");
-//    const path = `assets/characters/${state.game}/${state.mod}/${state.position}/${state.character}/${findbody}`;
-//    document.getElementById("char-body").src = path;
+let characterFiles = [];
+
+function loadCharacterFiles() {
+   fetch("/api/characters")
+      .then((res) => res.json())
+      .then((data) => {
+         characterFiles = data[currentCharacter.game][currentCharacter.mod][currentCharacter.position][currentCharacter.name];
+
+         buildEditors();
+      });
+}
+
+// function splitFiles() {
+//    return {
+//       body: characterFiles.filter((f) => f.startsWith("body")),
+//       clothes: characterFiles.filter((f) => f.startsWith("clothes")),
+//       emotions: characterFiles.filter((f) => f.startsWith("emotion")),
+//       accessories: characterFiles.filter((f) => f.startsWith("accessory")),
+//    };
 // }
 
-// function setLayer(id, folder, file) {
-//    const path = `assets/characters/${state.game}/${state.mod}/${state.position}/${state.character}/${folder}/${file}`;
-//    document.getElementById(id).src = path;
+// function buildEditors() {
+//    const data = splitFiles();
+
+//    buildBlock("body-editor-div", data.body, "body");
+//    buildBlock("clothes-editor-div", data.clothes, "clothes");
+//    buildBlock("emotion-editor-div", data.emotions, "emotion");
+// }
+
+// function buildBlock(containerId, files, type) {
+//    const container = document.querySelector(`#${containerId} .sprite-editor-content`);
+//    container.innerHTML = "";
+
+//    files.forEach((file, index) => {
+//       const id = `${type}-${index}`;
+
+//       const div = document.createElement("div");
+//       div.className = "form-check";
+
+//       div.innerHTML = `
+//          <input class="form-check-input" type="radio" name="${type}" id="${id}">
+//          <label class="form-check-label" for="${id}">
+//             ${file}
+//          </label>
+//       `;
+
+//       div.querySelector("input").onclick = () => {
+//          selectPart(type, file);
+//       };
+
+//       container.appendChild(div);
+//    });
+// }
+
+// function selectPart(type, file) {
+//    currentCharacter[type] = file;
+
+//    const path = currentCharacter.path + file;
+
+//    if (type === "body") {
+//       document.getElementById("char-body").src = path;
+
+//       filterByBody(file);
+//    }
+
+//    if (type === "clothes") {
+//       document.getElementById("char-clothes").src = path;
+//    }
+
+//    if (type === "emotion") {
+//       document.getElementById("char-emotion").src = path;
+//    }
+
+//    if (type === "accessory") {
+//       document.getElementById("char-accessory").src = path;
+//    }
+
+//    updatePreview();
+// }
+
+// function filterByBody(bodyFile) {
+//    const id = bodyFile.split("_")[1];
+
+//    const data = splitFiles();
+
+//    const filteredClothes = data.clothes.filter((f) => f.includes(`_${id}`));
+//    const filteredEmotions = data.emotions.filter((f) => f.includes(`_${id}`));
+
+//    buildBlock("clothes-editor-div", filteredClothes, "clothes");
+//    buildBlock("emotion-editor-div", filteredEmotions, "emotion");
 // }
