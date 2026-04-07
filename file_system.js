@@ -12,8 +12,6 @@ let state = {
    character: "",
 };
 
-let step = "game";
-
 document.getElementById("chchoosemodal").addEventListener("shown.bs.modal", () => {
    step = "game";
    render();
@@ -128,11 +126,13 @@ function back(container) {
 }
 
 function loadBody() {
-   const path = `assets/characters/${state.game}/${state.mod}/${state.character}/body.png`;
+   const findbody = str.includes("body.png");
+   // const path = `assets/characters/${state.game}/${state.mod}/${state.position}/${state.character}/body.png`;
+   const path = `assets/characters/${state.game}/${state.mod}/${state.position}/${state.character}/${findbody}`;
    document.getElementById("char-body").src = path;
 }
 
 function setLayer(id, folder, file) {
-   const path = `assets/characters/${state.game}/${state.mod}/${state.character}/${folder}/${file}`;
+   const path = `assets/characters/${state.game}/${state.mod}/${state.position}/${state.character}/${folder}/${file}`;
    document.getElementById(id).src = path;
 }
