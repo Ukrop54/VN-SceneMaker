@@ -12,11 +12,10 @@ function toggleMenu() {
    $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
 }
 
-// const select = document.getElementById("mySelect");
-
-// select.addEventListener("click", () => {
-//    select.classList.toggle("active");
-// });
+function toggleEditorMenu(id) {
+   $(`#${id}-editor_content`).slideToggle("slow", function () {});
+   $(`#${id}_arrow`).toggleClass("bi-chevron-down bi-chevron-up");
+}
 
 $("#sprstyle-select-header").on("click", function () {
    $("#sprstyle-content").slideToggle("slow", function () {});

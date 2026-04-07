@@ -5,6 +5,31 @@ body {
    color: white;
 }
 
+.character-option {
+   padding: 10px 15px;
+   margin: 4px 0;
+   border: 2px solid #555;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: all 0.2s;
+   user-select: none;
+}
+
+.character-option:hover {
+   border-color: #0d6efd;
+   background: rgba(13, 110, 253, 0.1);
+}
+
+.character-option.selected {
+   border-color: #0d6efd;
+   background: rgba(13, 110, 253, 0.2);
+   font-weight: bold;
+}
+
+.left-category {
+   margin-bottom: 20px;
+}
+
 .sprstylemaindiv1 {
    height: 2.3em;
 }
@@ -238,4 +263,30 @@ body {
 }
 .filter-dream {
    filter: blur(2px) brightness(1.2);
+}
+
+.character-option {
+   padding: 10px 14px;
+   margin: 4px 0;
+   border: 2px solid #555;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   user-select: none;
+   background: rgba(255, 255, 255, 0.05);
+}
+
+.character-option:hover {
+   border-color: #0d6efd;
+   background: rgba(13, 110, 253, 0.15);
+}
+
+.character-option.selected {
+   border-color: #0d6efd;
+   background: rgba(13, 110, 253, 0.25);
+   font-weight: 600;
+}
+
+.left-category {
+   margin-bottom: 12px;
 }

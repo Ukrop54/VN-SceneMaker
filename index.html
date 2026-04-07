@@ -172,18 +172,26 @@
                                  ></i> -->
                         <div class="col">
                            <div class="sprite-editor" id="body-editor-div">
-                              <div class="sprite-editor-header" id="body-editor">
+                              <div class="sprite-editor-header" onclick="toggleEditorMenu('body')">
                                  <span>Body</span>
-                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                                 <i class="bi bi-chevron-down" id="body_arrow"></i>
                               </div>
-                              <div class="sprite-editor-content" style="display: none"></div>
+                              <div class="sprite-editor-content" id="body-editor_content" style="display: none">
+                                 <div class="left-category">
+                                    <div id="left-body"></div>
+                                 </div>
+                              </div>
                            </div>
                            <div class="sprite-editor" id="clothes-editor-div" style="margin-bottom: 25%">
-                              <div class="sprite-editor-header" id="clothes-editor">
+                              <div class="sprite-editor-header" onclick="toggleEditorMenu('clothes')">
                                  <span>Clothes</span>
-                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                                 <i class="bi bi-chevron-down" id="clothes_arrow"></i>
                               </div>
-                              <div class="sprite-editor-content" style="display: none"></div>
+                              <div class="sprite-editor-content" id="clothes-editor_content" style="display: none">
+                                 <div class="left-category">
+                                    <div id="left-clothes"></div>
+                                 </div>
+                              </div>
                            </div>
                            <div class="sprstyle-select-box">
                               <div class="sprstyle-select-header" id="sprstyle-select-header">
@@ -264,18 +272,26 @@
                         <div class="col">
                            <div class="textstylediv" id="sprite-style" style="display: none"></div>
                            <div class="sprite-editor" id="emotion-editor-div">
-                              <div class="sprite-editor-header" id="emotion-editor">
+                              <div class="sprite-editor-header" onclick="toggleEditorMenu('emotion')">
                                  <span>Emotion</span>
-                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                                 <i class="bi bi-chevron-down" id="emotion_arrow"></i>
                               </div>
-                              <div class="sprite-editor-content" style="display: none"></div>
+                              <div class="sprite-editor-content" id="emotion-editor_content" style="display: none">
+                                 <div class="left-category">
+                                    <div id="left-emotions"></div>
+                                 </div>
+                              </div>
                            </div>
-                           <div class="sprite-editor" id="animation-editor-div" style="margin-bottom: 25%">
-                              <div class="sprite-editor-header" id="animation-editor">
-                                 <span>Animation</span>
-                                 <i class="bi bi-chevron-down" id="show-sprstyle"></i>
+                           <div class="sprite-editor" id="decoration-editor-div" style="margin-bottom: 25%">
+                              <div class="sprite-editor-header" onclick="toggleEditorMenu('decoration')">
+                                 <span>Decoration</span>
+                                 <i class="bi bi-chevron-down" id="decoration_arrow"></i>
                               </div>
-                              <div class="sprite-editor-content" style="display: none"></div>
+                              <div class="sprite-editor-content" id="decoration-editor_content" style="display: none">
+                                 <div class="left-category">
+                                    <div id="left-decor"></div>
+                                 </div>
+                              </div>
                            </div>
                            <div class="chpositionselect">
                               <select class="form-select" onchange="setCharPos(this.value)">
