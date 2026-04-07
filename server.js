@@ -10,8 +10,6 @@ app.use(express.static(__dirname));
 function scanCharacters(basePath) {
    const result = {};
 
-   if (!fs.existsSync(basePath)) return result;
-
    const games = fs.readdirSync(basePath);
 
    games.forEach((game) => {
@@ -24,28 +22,28 @@ function scanCharacters(basePath) {
          result[game][mod] = {};
 
          const modPath = path.join(gamePath, mod);
-         const chars = fs.readdirSync(modPath);
 
-         chars.forEach((char) => {
-            const charPath = path.join(modPath, char);
+         const positions = fs.readdirSync(modPath).filter((p) => fs.lstatSync(path.join(modPath, p)).isDirectory());
 
-            result[game][mod][char] = {
-               body: "body.png",
-               clothes: getFiles(charPath, "clothes"),
-               emotions: getFiles(charPath, "emotions"),
-               accessories: getFiles(charPath, "accessories"),
-            };
+         positions.forEach((position) => {
+            result[game][mod][position] = {};
+
+            const posPath = path.join(modPath, position);
+
+            const characters = fs.readdirSync(posPath).filter((c) => fs.lstatSync(path.join(posPath, c)).isDirectory());
+
+            characters.forEach((char) => {
+               const charPath = path.join(posPath, char);
+
+               const files = fs.readdirSync(charPath).filter((f) => f.endsWith(".png"));
+
+               result[game][mod][position][char] = files;
+            });
          });
       });
    });
 
    return result;
-}
-
-function getFiles(base, folder) {
-   const fullPath = path.join(base, folder);
-   if (!fs.existsSync(fullPath)) return [];
-   return fs.readdirSync(fullPath);
 }
 
 app.get("/api/characters", (req, res) => {

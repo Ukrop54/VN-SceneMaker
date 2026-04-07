@@ -1,4 +1,4 @@
-let currentCharacter = "girl";
+// let currentCharacter = "girl";
 
 function setBackground(file) {
    document.getElementById("bg").src = "assets/backgrounds/" + file;
@@ -8,21 +8,21 @@ function setBlur(value) {
    document.getElementById("bg").style.filter = `blur(${value}px)`;
 }
 
-function loadCharacter(name) {
-   currentCharacter = name;
+// function loadCharacter(name) {
+//    currentCharacter = name;
 
-   document.getElementById("char-body").src = `assets/characters/${name}/body.png`;
-   document.getElementById("char-clothes").src = "";
-   document.getElementById("char-emotion").src = "";
-}
+//    document.getElementById("char-body").src = `assets/characters/${name}/body.png`;
+//    document.getElementById("char-clothes").src = "";
+//    document.getElementById("char-emotion").src = "";
+// }
 
-function setClothes(file) {
-   document.getElementById("char-clothes").src = `assets/characters/${currentCharacter}/clothes/${file}`;
-}
+// function setClothes(file) {
+//    document.getElementById("char-clothes").src = `assets/characters/${currentCharacter}/clothes/${file}`;
+// }
 
-function setEmotion(file) {
-   document.getElementById("char-emotion").src = `assets/characters/${currentCharacter}/emotions/${file}`;
-}
+// function setEmotion(file) {
+//    document.getElementById("char-emotion").src = `assets/characters/${currentCharacter}/emotions/${file}`;
+// }
 
 function syncExportScene() {
    document.getElementById("export-bg").src = document.getElementById("bg").src;
@@ -54,7 +54,7 @@ function clearLayer(id) {
 }
 
 function exportImage() {
-   const scene = syncExportScene();
+   syncExportScene();
 
    html2canvas(document.getElementById("export-scene"), {
       width: 1280,
