@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
    <head>
       <meta charset="UTF-8" />
       <title>Scene Editor</title>
@@ -11,32 +11,13 @@
          crossorigin="anonymous"
       />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-      <style>
-         .explorer {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid #555;
-            border-radius: 8px;
-            padding: 10px;
-         }
-
-         .explorer-item {
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 5px;
-         }
-
-         .explorer-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-         }
-      </style>
    </head>
    <body>
       <div class="container">
          <div class="mainbox">
             <div class="bgzone">
                <div id="app">
-                  <div id="main-scene-container">
+                  <div id="main-scene-container" style="border: 1px solid #cccccc71">
                      <div id="scene" style="width: 100%">
                         <img id="bg" />
                         <img id="char-body" />
@@ -111,40 +92,11 @@
                </div>
             </div>
 
-            <!-- <div id="controls"> -->
-            <!-- <div class="block">
-                  <h3>Фон</h3>
-                  <button onclick="setBackground('bg1.png')">BG 1</button>
-                  <button onclick="setBackground('bg2.jpg')">BG 2</button>
-                  <br />
-                  Blur: <input type="range" min="0" max="15" value="5" oninput="setBlur(this.value)" />
-               </div>
-   
-               <div class="block">
-                  <h3>Персонаж</h3>
-                  <button onclick="loadCharacter('girl')">Girl</button>
-               </div>
-   
-               <div class="block">
-                  <h3>Одежда</h3>
-                  <button onclick="setClothes('dress.png')">Dress</button>
-                  <button onclick="setClothes('casual.png')">Casual</button>
-               </div>
-   
-               <div class="block">
-                  <h3>Эмоции</h3>
-                  <button onclick="setEmotion('happy.png')">Happy</button>
-                  <button onclick="setEmotion('sad.png')">Sad</button>
-               </div>
-   
-               <div class="block">
-                  <button onclick="exportImage()">📸 Export</button>
-               </div> -->
             <div class="character-interactions chzone">
                <div class="row">
                   <div class="col">
-                     <div id="preview-scene-container" data-bs-toggle="modal" data-bs-target="#chchoosemodal">
-                        <div class="PreviewScene" id="scene" style="width: 100%; aspect-ratio: 0.83 / 1; border: 1px solid #ccc">
+                     <div id="preview-scene-container" data-bs-toggle="modal" data-bs-target="#chchoosemodal" style="border: 1px solid #cccccc71">
+                        <div class="PreviewScene" id="scene" style="width: 100%; aspect-ratio: 0.83 / 1">
                            <p class="text-center" style="position: relative; top: 50%">Click Me</p>
                            <img id="pchar-body" />
                            <img id="pchar-clothes" />
@@ -357,6 +309,7 @@
             </div>
          </div>
       </div>
+
       <script
          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
