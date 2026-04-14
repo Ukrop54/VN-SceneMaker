@@ -292,3 +292,23 @@ body {
 .left-category {
    margin-bottom: 12px;
 }
+
+#bg {
+   z-index: 1;
+}
+#char-body {
+   z-index: 2;
+   transition: all 0.1s ease;
+}
+#char-clothes {
+   z-index: 3;
+   transition: all 0.1s ease;
+}
+#char-emotion {
+   z-index: 4;
+   transition: all 0.1s ease;
+}
+#char-accessory {
+   z-index: 5;
+   transition: all 0.1s ease;
+}

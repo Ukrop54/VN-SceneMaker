@@ -19,8 +19,11 @@ function setBlur(value) {
 // }
 
 function copyStyles(from, to) {
-   const style = window.getComputedStyle(from);
-   to.style.cssText = style.cssText;
+   const computed = window.getComputedStyle(from);
+
+   for (let prop of computed) {
+      to.style.setProperty(prop, computed.getPropertyValue(prop));
+   }
 }
 
 function syncExportScene() {
@@ -36,23 +39,59 @@ function syncExportScene() {
       const from = document.getElementById(fromId);
       const to = document.getElementById(toId);
 
-      to.src = from.src;
+      if (from.src && from.src !== window.location.href) {
+         to.src = from.src;
+         copyStyles(from, to);
+      } else {
+         to.src = "";
+      }
       copyStyles(from, to);
    });
 }
 
-function copyLayer(fromId, toId) {
-   const from = document.getElementById(fromId);
-   const to = document.getElementById(toId);
+// function copyLayer(fromId, toId) {
+//    const from = document.getElementById(fromId);
+//    const to = document.getElementById(toId);
 
-   if (from.src && from.src !== window.location.href) {
-      to.src = from.src;
-      to.style.display = "block";
-   } else {
-      to.style.display = "none";
-   }
+//    if (from.src && from.src !== window.location.href) {
+//       to.src = from.src;
+//       to.style.display = "block";
+//    } else {
+//       to.style.display = "none";
+//    }
+// }
+function setCharPos(value) {
+   const chars = ["char-body", "char-clothes", "char-emotion", "char-accessory"];
+
+   chars.forEach((id) => {
+      const el = document.getElementById(id);
+
+      if (isNaN(value)) {
+         const posMap = {
+            left: 20,
+            cl: 35,
+            center: 50,
+            cr: 65,
+            right: 80,
+         };
+
+         el.style.left = posMap[value] + "%";
+         el.style.transform = "translateX(-50%)";
+      } else {
+         el.style.left = "50%";
+         // el.style.transform = `translateX(calc(-50% + ${value}%))`;
+         el.style.transform = `translateX(-50%) translateX(${value}%)`;
+      }
+   });
 }
 
+function syncPreview() {
+   html2canvas(document.getElementById("scene"), {
+      scale: 0.3,
+   }).then((canvas) => {
+      document.getElementById("previewImage").src = canvas.toDataURL();
+   });
+}
 // function clearSceneLayer(id) {
 //    const el = document.getElementById(id);
 //    el.src = "";
@@ -65,6 +104,7 @@ function exportImage() {
       width: 1280,
       height: 720,
       scale: 2,
+      backgroundColor: null,
    }).then((canvas) => {
       let link = document.createElement("a");
       link.download = "scene.png";

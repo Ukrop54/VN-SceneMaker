@@ -32,6 +32,18 @@ function clearLayer(id) {
    document.getElementById(id).src = "";
 }
 
+function resetCharacterLayers() {
+   currentState.bodyType = "";
+   currentState.clothes = null;
+   currentState.emotion = null;
+   currentState.accessory = null;
+
+   clearLayer("char-body");
+   clearLayer("char-clothes");
+   clearLayer("char-emotion");
+   clearLayer("char-accessory");
+}
+
 function getFiles() {
    if (!currentState.character) return [];
    return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
@@ -198,6 +210,7 @@ function render() {
    } else if (step === "character") {
       Object.keys(FS[currentState.game][currentState.mod][currentState.position]).forEach((ch) => {
          addItem(container, "Character: " + ch, () => {
+            resetCharacterLayers();
             currentState.character = ch;
             step = "body";
             render();
