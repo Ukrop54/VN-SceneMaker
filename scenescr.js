@@ -1,5 +1,3 @@
-// let currentCharacter = "girl";
-
 function setBackground(file) {
    document.getElementById("bg").src = "assets/backgrounds/" + file;
 }
@@ -8,32 +6,39 @@ function setBlur(value) {
    document.getElementById("bg").style.filter = `blur(${value}px)`;
 }
 
-// function loadCharacter(name) {
-//    currentCharacter = name;
+// function syncExportScene() {
+//    document.getElementById("export-bg").src = document.getElementById("bg").src;
 
-//    document.getElementById("char-body").src = `assets/characters/${name}/body.png`;
-//    document.getElementById("char-clothes").src = "";
-//    document.getElementById("char-emotion").src = "";
+//    document.getElementById("export-body").src = document.getElementById("char-body").src;
+
+//    document.getElementById("export-clothes").src = document.getElementById("char-clothes").src;
+
+//    document.getElementById("export-emotion").src = document.getElementById("char-emotion").src;
+
+//    document.getElementById("export-accessory").src = document.getElementById("char-accessory").src;
 // }
 
-// function setClothes(file) {
-//    document.getElementById("char-clothes").src = `assets/characters/${currentCharacter}/clothes/${file}`;
-// }
-
-// function setEmotion(file) {
-//    document.getElementById("char-emotion").src = `assets/characters/${currentCharacter}/emotions/${file}`;
-// }
+function copyStyles(from, to) {
+   const style = window.getComputedStyle(from);
+   to.style.cssText = style.cssText;
+}
 
 function syncExportScene() {
-   document.getElementById("export-bg").src = document.getElementById("bg").src;
+   const pairs = [
+      ["bg", "export-bg"],
+      ["char-body", "export-body"],
+      ["char-clothes", "export-clothes"],
+      ["char-emotion", "export-emotion"],
+      ["char-accessory", "export-accessory"],
+   ];
 
-   document.getElementById("export-body").src = document.getElementById("char-body").src;
+   pairs.forEach(([fromId, toId]) => {
+      const from = document.getElementById(fromId);
+      const to = document.getElementById(toId);
 
-   document.getElementById("export-clothes").src = document.getElementById("char-clothes").src;
-
-   document.getElementById("export-emotion").src = document.getElementById("char-emotion").src;
-
-   document.getElementById("export-accessory").src = document.getElementById("char-accessory").src;
+      to.src = from.src;
+      copyStyles(from, to);
+   });
 }
 
 function copyLayer(fromId, toId) {
@@ -44,14 +49,14 @@ function copyLayer(fromId, toId) {
       to.src = from.src;
       to.style.display = "block";
    } else {
-      to.style.display = "none"; // ❗ ключ
+      to.style.display = "none";
    }
 }
 
-function clearLayer(id) {
-   const el = document.getElementById(id);
-   el.src = "";
-}
+// function clearSceneLayer(id) {
+//    const el = document.getElementById(id);
+//    el.src = "";
+// }
 
 function exportImage() {
    syncExportScene();

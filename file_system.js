@@ -85,6 +85,7 @@ function isEmotion(file) {
       "fear",
       "surp",
       "shocked",
+      "rage",
    ];
    return emotions.some((e) => file.includes("_" + e));
 }
@@ -102,7 +103,15 @@ function renderLeftPanel() {
 }
 
 function getAllBodies() {
-   return getFiles().filter((f) => f.includes("_body"));
+   // return getFiles().filter((f) => f.includes("_body"));
+   const files = getFiles();
+
+   const bodies = files.filter((f) => f.includes("_body"));
+   if (bodies.length > 0) return bodies;
+
+   const bases = [...new Set(files.map((f) => f.split("_").slice(0, 2).join("_")))];
+
+   return bases.map((b) => b + "_body");
 }
 
 function renderCategory(type, containerId, files, isBody = false) {

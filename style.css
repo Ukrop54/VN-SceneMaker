@@ -44,7 +44,7 @@ body {
    border-radius: 7px;
    width: 100%;
    transition: all 0.3s ease;
-   height: 2.3em;
+   min-height: 2.3em;
    margin-bottom: 1%;
 }
 
@@ -128,7 +128,8 @@ body {
    padding: 12px;
 } */
 
-#scene-container {
+#main-scene-container,
+#preview-scene-container {
    /* flex: 1;
    display: flex;
    justify-content: center;
@@ -216,7 +217,8 @@ body {
    vertical-align: middle;
 }
 
-#scene-container,
+#main-scene-container,
+#preview-scene-container,
 .PreviewScene {
    /* margin: 6px 0; */
    width: 100%;
