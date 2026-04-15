@@ -1,9 +1,16 @@
 let FS = {};
+let BGFS = {};
 
 fetch("/api/characters")
    .then((res) => res.json())
    .then((data) => {
       FS = data;
+   });
+
+fetch("/api/backgrounds")
+   .then((res) => res.json())
+   .then((data) => {
+      BGFS = data;
    });
 
 let currentState = {
@@ -17,7 +24,15 @@ let currentState = {
    accessory: null,
 };
 
+let currentBgState = {
+   background: "",
+   mod: "",
+   category: "",
+   page: 0,
+};
+
 let step = "game";
+let bgStep = "game";
 
 function setDirectLayer(id, file) {
    if (!file) {
@@ -27,6 +42,17 @@ function setDirectLayer(id, file) {
    const path = `assets/characters/${currentState.game}/${currentState.mod}/${currentState.position}/${currentState.character}/${file}`;
    document.getElementById(id).src = path;
 }
+
+function BgsetDirectLayer(id, file) {
+   if (!file) {
+      document.getElementById(id).src = "";
+      return;
+   }
+   const bgpath = `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
+   document.getElementById(id).src = bgpath;
+}
+
+const ITEMS_PER_PAGE = 9;
 
 function clearLayer(id) {
    document.getElementById(id).src = "";
@@ -47,6 +73,66 @@ function resetCharacterLayers() {
 function getFiles() {
    if (!currentState.character) return [];
    return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
+}
+
+function getBgFiles() {
+   if (!currentBgState.background) return [];
+   return BGFS[currentBgState.game]?.[currentBgState.mod]?.[currentBgState.category] || [];
+}
+
+function renderBGGrid(container, files) {
+   container.innerHTML = "";
+
+   const grid = document.createElement("div");
+   grid.className = "row row-cols-3 g-2";
+
+   files.forEach((file) => {
+      const col = document.createElement("div");
+      col.className = "col";
+
+      const img = document.createElement("img");
+      img.src = getBGPath(file);
+      img.className = "img-fluid rounded";
+      img.style.cursor = "pointer";
+
+      img.onclick = () => setBackgroundFromState(file);
+
+      col.appendChild(img);
+      grid.appendChild(col);
+   });
+
+   container.appendChild(grid);
+}
+
+function renderPagination(container, totalFiles) {
+   const totalPages = Math.ceil(totalFiles / ITEMS_PER_PAGE);
+
+   const nav = document.createElement("div");
+
+   const prev = document.createElement("button");
+   prev.textContent = "←";
+   prev.onclick = () => {
+      if (currentBGState.page > 0) {
+         currentBGState.page--;
+         renderBGExplorer();
+      }
+   };
+
+   const next = document.createElement("button");
+   next.textContent = "→";
+   next.onclick = () => {
+      if (currentBGState.page < totalPages - 1) {
+         currentBGState.page++;
+         renderBGExplorer();
+      }
+   };
+
+   nav.append(prev, next);
+   container.appendChild(nav);
+}
+
+function setBackground(file) {
+   $("#bg").attr("src", getBGPath(file));
 }
 
 function splitFiles() {
@@ -131,6 +217,11 @@ function getAllBodies() {
    const bases = [...new Set(files.map((f) => f.split("_").slice(0, 2).join("_")))];
 
    return bases.map((b) => b + "_body");
+}
+
+function paginate(files, page) {
+   const start = page * ITEMS_PER_PAGE;
+   return files.slice(start, start + ITEMS_PER_PAGE);
 }
 
 function renderCategory(type, containerId, files, isBody = false) {

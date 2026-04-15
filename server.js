@@ -51,6 +51,11 @@ app.get("/api/characters", (req, res) => {
    res.json(data);
 });
 
+app.get("/api/backgrounds", (req, res) => {
+   const bgdata = path.join(__dirname, "assets/backgrounds");
+   res.json(bgdata);
+});
+
 app.listen(PORT, () => {
    console.log(`Server running: http://localhost:${PORT}`);
 });
