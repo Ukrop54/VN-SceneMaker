@@ -105,6 +105,10 @@ function renderPagination(container, total) {
    const nav = document.createElement("div");
    nav.className = "bg-pagination";
 
+   nav.style.display = "flex";
+   nav.style.alignItems = "center";
+   nav.style.gap = "10px";
+
    const prev = document.createElement("button");
    prev.textContent = "←";
    prev.disabled = currentBgState.page === 0;
@@ -125,11 +129,12 @@ function renderPagination(container, total) {
       renderBGExplorer();
    };
 
-   nav.append(prev, next);
+   const pageText = document.createElement("span");
+   pageText.textContent = `${currentBgState.page + 1} / ${totalPages}`;
+
+   nav.append(prev, pageText, next);
    container.appendChild(nav);
 }
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function renderBGExplorer() {
    const container = document.getElementById("background-explorer");
@@ -172,16 +177,6 @@ function resetCharacterLayers() {
    clearLayer("char-emotion");
    clearLayer("char-accessory");
 }
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// function BgsetDirectLayer(id, file) {
-//    if (!file) {
-//       document.getElementById(id).src = "";
-//       return;
-//    }
-//    const bgpath = `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
-//    document.getElementById(id).src = bgpath;
-// }
 
 function getFiles() {
    return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
@@ -291,11 +286,6 @@ function bgback(container) {
       } else if (bgStep === "viewer") {
          bgStep = "category";
       }
-      //  else {
-      //    bgStep = "category";
-      //    currentBgState.mod = "";
-      //    currentBgState.category = "";
-      // }
       renderBGSelector();
    };
 
@@ -324,41 +314,6 @@ function renderLeftPanel() {
    renderCategory("accessory", "#left-decor", splitFiles().accessories);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// function scanBackgrounds(basePath) {
-//    const result = {};
-
-//    const games = fs.readdirSync(basePath);
-
-//    games.forEach((game) => {
-//       result[game] = {};
-
-//       const gamePath = path.join(basePath, game);
-//       const mods = fs.readdirSync(gamePath);
-
-//       mods.forEach((mod) => {
-//          result[game][mod] = {};
-
-//          const modPath = path.join(gamePath, mod);
-//          const categories = fs.readdirSync(modPath);
-
-//          categories.forEach((cat) => {
-//             const catPath = path.join(modPath, cat);
-
-//             const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".png"));
-
-//             result[game][mod][cat] = files;
-//          });
-//       });
-//    });
-
-//    return result;
-// }
-
-// function setBackground(file) {
-//    $("#bg").attr("src", getBGPath(file));
-// }
-
 function getAllBodies() {
    const files = getFiles();
 
@@ -370,49 +325,6 @@ function getAllBodies() {
    return bases.map((b) => b + "_body");
 }
 
-// function renderCategory(type, containerId, files, isBody = false) {
-//    const container = document.querySelector(containerId);
-//    if (!container) return;
-
-//    container.innerHTML = "";
-
-//    if (!isBody) {
-//       const noneDiv = createOptionDiv("None", !currentState[type]);
-//       noneDiv.onclick = () => {
-//          currentState[type] = null;
-//          clearLayer(`char-${type === "accessory" ? "accessory" : type}`);
-//          renderLeftPanel();
-//       };
-//       container.appendChild(noneDiv);
-//    }
-
-//    files.forEach((file) => {
-//       const isSelected = isBody ? file.includes(currentState.bodyType) : file === currentState[type];
-
-//       const div = createOptionDiv(file, isSelected);
-
-//       div.onclick = () => {
-//          if (isBody) {
-//             currentState.bodyType = file.split("_body")[0];
-//             currentState.clothes = null;
-//             currentState.emotion = null;
-//             currentState.accessory = null;
-
-//             setDirectLayer("char-body", file);
-//             clearLayer("char-clothes");
-//             clearLayer("char-emotion");
-//             clearLayer("char-accessory");
-//          } else {
-//             currentState[type] = file;
-//             setDirectLayer(`char-${type === "accessory" ? "accessory" : type}`, file);
-//          }
-//          renderLeftPanel();
-//       };
-//       container.appendChild(div);
-//    });
-// }
-
-//modified
 function renderCategory(type, containerId, files, isBody = false) {
    const container = document.querySelector(containerId);
    if (!container) return;
