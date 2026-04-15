@@ -108,6 +108,14 @@ function isAccessory(file) {
 }
 
 function renderLeftPanel() {
+   if (!currentState.bodyType) {
+      $(".sprite-editor").css({ display: "none" });
+      return;
+   }
+
+   // $(".sprite-editor").slideToggle("slow", function () {});
+   $(".sprite-editor").css({ display: "block" });
+
    renderCategory("body", "#left-body", getAllBodies(), true);
    renderCategory("clothes", "#left-clothes", splitFiles().clothes, false);
    renderCategory("emotion", "#left-emotions", splitFiles().emotions, false);
@@ -115,7 +123,6 @@ function renderLeftPanel() {
 }
 
 function getAllBodies() {
-   // return getFiles().filter((f) => f.includes("_body"));
    const files = getFiles();
 
    const bodies = files.filter((f) => f.includes("_body"));

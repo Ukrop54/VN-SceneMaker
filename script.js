@@ -33,3 +33,7 @@ radios.forEach((radio) => {
       image.classList.add("filter-" + radio.value);
    });
 });
+
+function workinprogress() {
+   alert("This feature is still in development. Please check back later.");
+}

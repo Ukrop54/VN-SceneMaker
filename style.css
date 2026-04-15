@@ -124,6 +124,7 @@ body::before {
    border-radius: 7px;
    width: 100%;
    transition: all 0.3s ease;
+
    min-height: 2.3em;
    margin-bottom: 1%;
 }
