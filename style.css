@@ -19,7 +19,16 @@ body {
 
    /* overflow: hidden; */
    position: relative;
+   text-overflow: hidden !important;
    /* border-color: lightgray !important; */
+}
+
+p,
+button {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   margin: auto 0;
 }
 
 body::before {
@@ -205,19 +214,16 @@ body::before {
    display: block;
    margin: 0 auto;
    background: transparent;
-}
-
-.container {
-   padding: 0 !important;
-}
-
-#scene {
    position: relative;
    aspect-ratio: 16 / 9;
    width: 100%;
    max-width: 1280px;
 
    overflow: hidden;
+}
+
+.container {
+   padding: 0 !important;
 }
 
 #export-scene {
@@ -242,9 +248,65 @@ body::before {
 
 #bg {
    position: absolute;
-   width: 100%;
+   /* width: 100%; */
    height: 100%;
    object-fit: cover;
+}
+
+.exportbtn {
+   width: 100%;
+   margin: 5% auto;
+   border: 1px solid rgb(5, 199, 5) !important;
+   color: rgb(5, 199, 5) !important;
+   transition: all 0.5s ease;
+   overflow: hidden !important;
+   position: relative;
+}
+
+.exportbtn:hover {
+   background: lightgreen !important;
+   color: green !important;
+   /* box-shadow: 3px 3px 10px #90ee90 !important; */
+   box-shadow: 0px 0px 25px 5px #95ee91;
+}
+
+.exportbtn::after {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: -200px;
+   width: 30px;
+   height: 100%;
+   border-radius: 8px;
+   filter: blur(30px);
+   transform: skewX(30deg) translateZ(0);
+   transition: 1s;
+   background: lightgreen;
+   transition: all 0.3s ease;
+   animation: exportbtn_greeneffect;
+   animation-duration: 3s;
+   animation-delay: 0.05s;
+   animation-timing-function: ease;
+   animation-iteration-count: infinite;
+}
+
+.exportbtn:hover::after {
+   display: none;
+}
+
+@keyframes exportbtn_greeneffect {
+   0% {
+      left: -30px;
+      margin-left: 0px;
+   }
+   30% {
+      left: 110%;
+      margin-left: 80px;
+   }
+   100% {
+      left: 110%;
+      margin-left: 80px;
+   }
 }
 
 /* #char-body,
