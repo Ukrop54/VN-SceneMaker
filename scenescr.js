@@ -74,11 +74,12 @@ function setCharPos(value) {
             cr: 65,
             right: 80,
          };
-
+         el.style.transition = "all 0.3s ease";
          el.style.left = posMap[value] + "%";
          el.style.transform = "translateX(-50%)";
       } else {
          el.style.left = "50%";
+         el.style.transition = "none";
          // el.style.transform = `translateX(calc(-50% + ${value}%))`;
          el.style.transform = `translateX(-50%) translateX(${value}%)`;
       }

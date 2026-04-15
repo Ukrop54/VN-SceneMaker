@@ -1,16 +1,33 @@
 let FS = {};
 let BGFS = {};
 
+document.getElementById("bgchoosemodal").addEventListener("shown.bs.modal", () => {
+   bgStep = "game";
+   renderBGSelector();
+});
+
 fetch("/api/characters")
    .then((res) => res.json())
    .then((data) => {
       FS = data;
    });
 
+// fetch("/api/backgrounds")
+//    .then((res) => res.json())
+//    .then((data) => {
+//       BGFS = data;
+//    });
+
 fetch("/api/backgrounds")
-   .then((res) => res.json())
+   .then((res) => {
+      if (!res.ok) throw new Error("API error");
+      return res.json();
+   })
    .then((data) => {
       BGFS = data;
+   })
+   .catch((err) => {
+      console.error("BG load error:", err);
    });
 
 let currentState = {
@@ -39,7 +56,6 @@ function getBGPath(file) {
 }
 
 function getBgFiles() {
-   if (!currentBgState.background) return [];
    return BGFS[currentBgState.game]?.[currentBgState.mod]?.[currentBgState.category] || [];
 }
 
@@ -48,59 +64,14 @@ function setBackgroundFromState(file) {
    document.getElementById("bg").src = getBGPath(file);
 }
 
-let step = "game";
-let bgStep = "game";
-
-function setDirectLayer(id, file) {
-   if (!file) {
-      document.getElementById(id).src = "";
-      return;
-   }
-   const path = `assets/characters/${currentState.game}/${currentState.mod}/${currentState.position}/${currentState.character}/${file}`;
-   document.getElementById(id).src = path;
-}
-
-function renderBGExplorer() {
-   const container = document.getElementById("bg-explorer");
-
-   const files = getBgFiles();
-
-   renderBGGrid(container);
-   renderPagination(container, files.length);
-}
-
-function BgsetDirectLayer(id, file) {
-   if (!file) {
-      document.getElementById(id).src = "";
-      return;
-   }
-   const bgpath = `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
-   document.getElementById(id).src = bgpath;
-}
-
-function clearLayer(id) {
-   document.getElementById(id).src = "";
-}
-
-function resetCharacterLayers() {
-   currentState.bodyType = "";
-   currentState.clothes = null;
-   currentState.emotion = null;
-   currentState.accessory = null;
-
-   clearLayer("char-body");
-   clearLayer("char-clothes");
-   clearLayer("char-emotion");
-   clearLayer("char-accessory");
-}
-
-function getFiles() {
-   if (!currentState.character) return [];
-   return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
+function paginate(files, page = 0) {
+   const start = page * ITEMS_PER_PAGE;
+   return files.slice(start, start + ITEMS_PER_PAGE);
 }
 
 function renderBGGrid(container) {
-   const files = paginate(getBgFiles());
+   // const files = paginate(getBgFiles());
+   const files = paginate(getBgFiles(), currentBgState.page);
 
    container.innerHTML = "";
 
@@ -110,6 +81,7 @@ function renderBGGrid(container) {
    files.forEach((file) => {
       const img = document.createElement("img");
       img.src = getBGPath(file);
+      img.loading = "lazy";
       img.className = "bg-thumb";
 
       if (file === currentBgState.selected) {
@@ -131,10 +103,12 @@ function renderPagination(container, total) {
    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
    const nav = document.createElement("div");
+   nav.className = "bg-pagination";
 
    const prev = document.createElement("button");
    prev.textContent = "←";
    prev.disabled = currentBgState.page === 0;
+   prev.className = "btn btn-outline-light";
 
    prev.onclick = () => {
       currentBgState.page--;
@@ -144,6 +118,7 @@ function renderPagination(container, total) {
    const next = document.createElement("button");
    next.textContent = "→";
    next.disabled = currentBgState.page >= totalPages - 1;
+   next.className = "btn btn-outline-light";
 
    next.onclick = () => {
       currentBgState.page++;
@@ -154,38 +129,62 @@ function renderPagination(container, total) {
    container.appendChild(nav);
 }
 
-function scanBackgrounds(basePath) {
-   const result = {};
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   const games = fs.readdirSync(basePath);
+function renderBGExplorer() {
+   const container = document.getElementById("background-explorer");
+   bgStep = "viewer";
+   if (!container) return;
 
-   games.forEach((game) => {
-      result[game] = {};
+   const files = getBgFiles();
 
-      const gamePath = path.join(basePath, game);
-      const mods = fs.readdirSync(gamePath);
+   container.innerHTML = "";
 
-      mods.forEach((mod) => {
-         result[game][mod] = {};
-
-         const modPath = path.join(gamePath, mod);
-         const categories = fs.readdirSync(modPath);
-
-         categories.forEach((cat) => {
-            const catPath = path.join(modPath, cat);
-
-            const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".png"));
-
-            result[game][mod][cat] = files;
-         });
-      });
-   });
-
-   return result;
+   renderBGGrid(container);
+   bgback(container);
+   renderPagination(container, files.length);
 }
 
-function setBackground(file) {
-   $("#bg").attr("src", getBGPath(file));
+let step = "game";
+let bgStep = "game";
+
+function setDirectLayer(id, file) {
+   if (!file) {
+      document.getElementById(id).src = "";
+      return;
+   }
+   const path = `assets/characters/${currentState.game}/${currentState.mod}/${currentState.position}/${currentState.character}/${file}`;
+   document.getElementById(id).src = path;
+}
+
+function clearLayer(id) {
+   document.getElementById(id).src = "";
+}
+
+function resetCharacterLayers() {
+   currentState.bodyType = "";
+   currentState.clothes = null;
+   currentState.emotion = null;
+   currentState.accessory = null;
+
+   clearLayer("char-body");
+   clearLayer("char-clothes");
+   clearLayer("char-emotion");
+   clearLayer("char-accessory");
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// function BgsetDirectLayer(id, file) {
+//    if (!file) {
+//       document.getElementById(id).src = "";
+//       return;
+//    }
+//    const bgpath = `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
+//    document.getElementById(id).src = bgpath;
+// }
+
+function getFiles() {
+   return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
 }
 
 function splitFiles() {
@@ -237,8 +236,70 @@ function isEmotion(file) {
       "surp",
       "shocked",
       "rage",
+      "happy",
    ];
    return emotions.some((e) => file.includes("_" + e));
+}
+
+function renderBGSelector() {
+   // const container = document.getElementById("bg-selector");
+   const container = document.getElementById("background-explorer");
+
+   container.innerHTML = "";
+
+   if (bgStep === "game") {
+      Object.keys(BGFS).forEach((game) => {
+         addItem(container, game, () => {
+            currentBgState.game = game;
+            bgStep = "mod";
+            renderBGSelector();
+         });
+      });
+   } else if (bgStep === "mod") {
+      Object.keys(BGFS[currentBgState.game]).forEach((mod) => {
+         addItem(container, mod, () => {
+            currentBgState.mod = mod;
+            bgStep = "category";
+            renderBGSelector();
+         });
+      });
+   } else if (bgStep === "category") {
+      Object.keys(BGFS[currentBgState.game][currentBgState.mod]).forEach((cat) => {
+         addItem(container, cat, () => {
+            currentBgState.category = cat;
+            currentBgState.page = 0;
+
+            renderBGExplorer();
+         });
+      });
+   }
+   bgback(container);
+}
+
+function bgback(container) {
+   if (bgStep === "game") return;
+   const el = document.createElement("div");
+   el.className = "explorer-item";
+   el.textContent = "← Назад";
+   el.onclick = () => {
+      if (bgStep === "mod") {
+         bgStep = "game";
+         currentBgState.game = "";
+      } else if (bgStep === "category") {
+         bgStep = "mod";
+         currentBgState.mod = "";
+      } else if (bgStep === "viewer") {
+         bgStep = "category";
+      }
+      //  else {
+      //    bgStep = "category";
+      //    currentBgState.mod = "";
+      //    currentBgState.category = "";
+      // }
+      renderBGSelector();
+   };
+
+   container.prepend(el);
 }
 
 function isAccessory(file) {
@@ -248,18 +309,55 @@ function isAccessory(file) {
 
 function renderLeftPanel() {
    if (!currentState.bodyType) {
-      $(".sprite-editor").css({ display: "none" });
+      // $(".sprite-editor").css({ display: "none" });
+      $(".sprite-editor").hide();
       return;
    }
 
    // $(".sprite-editor").slideToggle("slow", function () {});
-   $(".sprite-editor").css({ display: "block" });
+   // $(".sprite-editor").css({ display: "block" });
+   $(".sprite-editor").show();
 
    renderCategory("body", "#left-body", getAllBodies(), true);
-   renderCategory("clothes", "#left-clothes", splitFiles().clothes, false);
-   renderCategory("emotion", "#left-emotions", splitFiles().emotions, false);
-   renderCategory("accessory", "#left-decor", splitFiles().accessories, false);
+   renderCategory("clothes", "#left-clothes", splitFiles().clothes);
+   renderCategory("emotion", "#left-emotions", splitFiles().emotions);
+   renderCategory("accessory", "#left-decor", splitFiles().accessories);
 }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// function scanBackgrounds(basePath) {
+//    const result = {};
+
+//    const games = fs.readdirSync(basePath);
+
+//    games.forEach((game) => {
+//       result[game] = {};
+
+//       const gamePath = path.join(basePath, game);
+//       const mods = fs.readdirSync(gamePath);
+
+//       mods.forEach((mod) => {
+//          result[game][mod] = {};
+
+//          const modPath = path.join(gamePath, mod);
+//          const categories = fs.readdirSync(modPath);
+
+//          categories.forEach((cat) => {
+//             const catPath = path.join(modPath, cat);
+
+//             const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".png"));
+
+//             result[game][mod][cat] = files;
+//          });
+//       });
+//    });
+
+//    return result;
+// }
+
+// function setBackground(file) {
+//    $("#bg").attr("src", getBGPath(file));
+// }
 
 function getAllBodies() {
    const files = getFiles();
@@ -272,34 +370,74 @@ function getAllBodies() {
    return bases.map((b) => b + "_body");
 }
 
-function paginate(files, page) {
-   const start = page * ITEMS_PER_PAGE;
-   return files.slice(start, start + ITEMS_PER_PAGE);
-}
+// function renderCategory(type, containerId, files, isBody = false) {
+//    const container = document.querySelector(containerId);
+//    if (!container) return;
 
+//    container.innerHTML = "";
+
+//    if (!isBody) {
+//       const noneDiv = createOptionDiv("None", !currentState[type]);
+//       noneDiv.onclick = () => {
+//          currentState[type] = null;
+//          clearLayer(`char-${type === "accessory" ? "accessory" : type}`);
+//          renderLeftPanel();
+//       };
+//       container.appendChild(noneDiv);
+//    }
+
+//    files.forEach((file) => {
+//       const isSelected = isBody ? file.includes(currentState.bodyType) : file === currentState[type];
+
+//       const div = createOptionDiv(file, isSelected);
+
+//       div.onclick = () => {
+//          if (isBody) {
+//             currentState.bodyType = file.split("_body")[0];
+//             currentState.clothes = null;
+//             currentState.emotion = null;
+//             currentState.accessory = null;
+
+//             setDirectLayer("char-body", file);
+//             clearLayer("char-clothes");
+//             clearLayer("char-emotion");
+//             clearLayer("char-accessory");
+//          } else {
+//             currentState[type] = file;
+//             setDirectLayer(`char-${type === "accessory" ? "accessory" : type}`, file);
+//          }
+//          renderLeftPanel();
+//       };
+//       container.appendChild(div);
+//    });
+// }
+
+//modified
 function renderCategory(type, containerId, files, isBody = false) {
    const container = document.querySelector(containerId);
    if (!container) return;
+
    container.innerHTML = "";
 
    if (!isBody) {
-      const noneDiv = createOptionDiv("None", !currentState[type]);
-      noneDiv.onclick = () => {
+      const none = createOptionDiv("None", !currentState[type]);
+      none.onclick = () => {
          currentState[type] = null;
-         clearLayer(`char-${type === "accessory" ? "accessory" : type}`);
+         clearLayer(`char-${type}`);
          renderLeftPanel();
       };
-      container.appendChild(noneDiv);
+      container.appendChild(none);
    }
 
    files.forEach((file) => {
-      const isSelected = isBody ? file.includes(currentState.bodyType) : file === currentState[type];
+      const selected = isBody ? file.includes(currentState.bodyType) : file === currentState[type];
 
-      const div = createOptionDiv(file, isSelected);
+      const div = createOptionDiv(file, selected);
 
       div.onclick = () => {
          if (isBody) {
             currentState.bodyType = file.split("_body")[0];
+
             currentState.clothes = null;
             currentState.emotion = null;
             currentState.accessory = null;
@@ -310,10 +448,12 @@ function renderCategory(type, containerId, files, isBody = false) {
             clearLayer("char-accessory");
          } else {
             currentState[type] = file;
-            setDirectLayer(`char-${type === "accessory" ? "accessory" : type}`, file);
+            setDirectLayer(`char-${type}`, file);
          }
+
          renderLeftPanel();
       };
+
       container.appendChild(div);
    });
 }
@@ -410,6 +550,10 @@ function render() {
             renderLeftPanel();
          });
       });
+      next(container, "exit");
+   } else if (step === "exit") {
+      var modalInstance = bootstrap.Modal.getInstance($("#chchoosemodal"));
+      modalInstance.hide();
    }
 
    back(container);

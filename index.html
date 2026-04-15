@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
    <head>
       <meta charset="UTF-8" />
-      <title>Scene Editor</title>
+      <title>Scene Maker</title>
       <link rel="stylesheet" href="style.css" />
       <link
          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -270,12 +270,12 @@
                   <div class="modal-content">
                      <div class="modal-header">
                         <h1 class="modal-title fs-5" id="BgModalLabel">
-                           Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Background
+                           Choose <a style="text-decoration: none; position: relative" href="#" onclick="workinprogress()">or load</a> Background
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      </div>
                      <div class="modal-body p-4 py-5 p-md-5">
-                        <div class="explorer" id="background-explorer"></div>
+                        <div class="explorer" id="background-explorer" onmousedown="return false;" onselectstart="return false"></div>
                         <!-- <div class="text-center"></div>
                      <div class="bg-gallery">
                         <div class="row row-cols-3">
@@ -292,7 +292,7 @@
                   <div class="modal-content">
                      <div class="modal-header">
                         <h1 class="modal-title fs-5" id="ChModalLabel">
-                           Choose <a style="text-decoration: none; position: relative" href="#">or load</a> Character
+                           Choose <a style="text-decoration: none; position: relative" href="#" onclick="workinprogress()">or load</a> Character
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      </div>

@@ -88,22 +88,22 @@ body::before {
 .character-option {
    padding: 10px 15px;
    margin: 4px 0;
-   border: 2px solid #555;
+   /* border: 2px solid #555; */
    border-radius: 8px;
    cursor: pointer;
-   transition: all 0.2s;
-   user-select: none;
+   /* transition: all 0.2s; */
+   /* user-select: none; */
 }
 
 .character-option:hover {
-   border-color: #0d6efd;
-   background: rgba(13, 110, 253, 0.1);
+   background: rgba(255, 255, 255, 0.1);
 }
 
 .character-option.selected {
-   border-color: #0d6efd;
-   background: rgba(13, 110, 253, 0.2);
+   /* background: rgba(29, 1, 105, 0.253); */
    font-weight: bold;
+   border-top: 1px solid #a5a5a55d !important;
+   border-bottom: 1px solid #a5a5a55d !important;
 }
 
 .left-category {
@@ -129,6 +129,10 @@ body::before {
    margin-bottom: 1%;
 }
 
+.sprite-editor {
+   display: none;
+}
+
 .sprstyle-select-header,
 .sprite-editor-header {
    /* padding: 10px; */
@@ -141,8 +145,8 @@ body::before {
 
 .sprstyle-content,
 .sprite-editor-content {
-   border: 1px solid #a5a5a55d;
-   border-top: 0;
+   /* border: 1px solid #a5a5a55d; */
+   border-top: 1px solid #a5a5a55d;
    border-radius: 0 0 7px 7px;
 }
 
@@ -419,27 +423,25 @@ body::before {
    filter: blur(2px) brightness(1.2);
 }
 
-.character-option {
+/* .character-option {
    padding: 10px 14px;
    margin: 4px 0;
-   border: 2px solid #555;
+   border: 1px solid #555;
    border-radius: 8px;
    cursor: pointer;
-   transition: all 2s ease;
+   transition: all 0.3s ease;
    user-select: none;
    background: rgba(255, 255, 255, 0.05);
 }
 
 .character-option:hover {
    border-color: #0d6efd;
-   background: rgba(13, 110, 253, 0.15);
 }
 
 .character-option.selected {
    border-color: #e72603c2;
-   background: #e725037e;
    font-weight: 600;
-}
+} */
 
 .left-category {
    margin-bottom: 12px;
@@ -450,19 +452,19 @@ body::before {
 }
 #char-body {
    z-index: 2;
-   transition: all 0.1s ease;
+   /* transition: all 0.1s ease; */
 }
 #char-clothes {
    z-index: 3;
-   transition: all 0.1s ease;
+   /* transition: all 0.1s ease; */
 }
 #char-emotion {
    z-index: 4;
-   transition: all 0.1s ease;
+   /* transition: all 0.1s ease; */
 }
 #char-accessory {
    z-index: 5;
-   transition: all 0.1s ease;
+   /* transition: all 0.1s ease; */
 }
 
 .bg-grid {
@@ -475,7 +477,7 @@ body::before {
    width: 100%;
    border-radius: 6px;
    cursor: pointer;
-   transition: 0.2s;
+   /* transition: 0.2s; */
 }
 
 .bg-thumb:hover {
@@ -490,4 +492,8 @@ body::before {
    margin-top: 10px;
    display: flex;
    justify-content: space-between;
+}
+
+#background-explorer button {
+   width: 25%;
 }
