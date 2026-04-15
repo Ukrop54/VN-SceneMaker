@@ -29,7 +29,24 @@ let currentBgState = {
    mod: "",
    category: "",
    page: 0,
+   selected: null,
 };
+
+const ITEMS_PER_PAGE = 9;
+
+function getBGPath(file) {
+   return `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
+}
+
+function getBgFiles() {
+   if (!currentBgState.background) return [];
+   return BGFS[currentBgState.game]?.[currentBgState.mod]?.[currentBgState.category] || [];
+}
+
+function setBackgroundFromState(file) {
+   currentBgState.selected = file;
+   document.getElementById("bg").src = getBGPath(file);
+}
 
 let step = "game";
 let bgStep = "game";
@@ -43,6 +60,15 @@ function setDirectLayer(id, file) {
    document.getElementById(id).src = path;
 }
 
+function renderBGExplorer() {
+   const container = document.getElementById("bg-explorer");
+
+   const files = getBgFiles();
+
+   renderBGGrid(container);
+   renderPagination(container, files.length);
+}
+
 function BgsetDirectLayer(id, file) {
    if (!file) {
       document.getElementById(id).src = "";
@@ -51,8 +77,6 @@ function BgsetDirectLayer(id, file) {
    const bgpath = `assets/backgrounds/${currentBgState.game}/${currentBgState.mod}/${currentBgState.category}/${file}`;
    document.getElementById(id).src = bgpath;
 }
-
-const ITEMS_PER_PAGE = 9;
 
 function clearLayer(id) {
    document.getElementById(id).src = "";
@@ -75,60 +99,89 @@ function getFiles() {
    return FS[currentState.game]?.[currentState.mod]?.[currentState.position]?.[currentState.character] || [];
 }
 
-function getBgFiles() {
-   if (!currentBgState.background) return [];
-   return BGFS[currentBgState.game]?.[currentBgState.mod]?.[currentBgState.category] || [];
-}
+function renderBGGrid(container) {
+   const files = paginate(getBgFiles());
 
-function renderBGGrid(container, files) {
    container.innerHTML = "";
 
    const grid = document.createElement("div");
-   grid.className = "row row-cols-3 g-2";
+   grid.className = "bg-grid";
 
    files.forEach((file) => {
-      const col = document.createElement("div");
-      col.className = "col";
-
       const img = document.createElement("img");
       img.src = getBGPath(file);
-      img.className = "img-fluid rounded";
-      img.style.cursor = "pointer";
+      img.className = "bg-thumb";
 
-      img.onclick = () => setBackgroundFromState(file);
+      if (file === currentBgState.selected) {
+         img.classList.add("selected");
+      }
 
-      col.appendChild(img);
-      grid.appendChild(col);
+      img.onclick = () => {
+         setBackgroundFromState(file);
+         renderBGExplorer();
+      };
+
+      grid.appendChild(img);
    });
 
    container.appendChild(grid);
 }
 
-function renderPagination(container, totalFiles) {
-   const totalPages = Math.ceil(totalFiles / ITEMS_PER_PAGE);
+function renderPagination(container, total) {
+   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
    const nav = document.createElement("div");
 
    const prev = document.createElement("button");
    prev.textContent = "←";
+   prev.disabled = currentBgState.page === 0;
+
    prev.onclick = () => {
-      if (currentBGState.page > 0) {
-         currentBGState.page--;
-         renderBGExplorer();
-      }
+      currentBgState.page--;
+      renderBGExplorer();
    };
 
    const next = document.createElement("button");
    next.textContent = "→";
+   next.disabled = currentBgState.page >= totalPages - 1;
+
    next.onclick = () => {
-      if (currentBGState.page < totalPages - 1) {
-         currentBGState.page++;
-         renderBGExplorer();
-      }
+      currentBgState.page++;
+      renderBGExplorer();
    };
 
    nav.append(prev, next);
    container.appendChild(nav);
+}
+
+function scanBackgrounds(basePath) {
+   const result = {};
+
+   const games = fs.readdirSync(basePath);
+
+   games.forEach((game) => {
+      result[game] = {};
+
+      const gamePath = path.join(basePath, game);
+      const mods = fs.readdirSync(gamePath);
+
+      mods.forEach((mod) => {
+         result[game][mod] = {};
+
+         const modPath = path.join(gamePath, mod);
+         const categories = fs.readdirSync(modPath);
+
+         categories.forEach((cat) => {
+            const catPath = path.join(modPath, cat);
+
+            const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".png"));
+
+            result[game][mod][cat] = files;
+         });
+      });
+   });
+
+   return result;
 }
 
 function setBackground(file) {

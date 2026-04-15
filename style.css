@@ -464,3 +464,30 @@ body::before {
    z-index: 5;
    transition: all 0.1s ease;
 }
+
+.bg-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 10px;
+}
+
+.bg-thumb {
+   width: 100%;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: 0.2s;
+}
+
+.bg-thumb:hover {
+   transform: scale(1.05);
+}
+
+.bg-thumb.selected {
+   outline: 3px solid #4caf50;
+}
+
+.bg-pagination {
+   margin-top: 10px;
+   display: flex;
+   justify-content: space-between;
+}

@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+
 const path = require("path");
 
 const app = express();
@@ -52,7 +53,7 @@ app.get("/api/characters", (req, res) => {
 });
 
 app.get("/api/backgrounds", (req, res) => {
-   const bgdata = path.join(__dirname, "assets/backgrounds");
+   const bgdata = scanBackgrounds(path.join(__dirname, "assets/backgrounds"));
    res.json(bgdata);
 });
 
