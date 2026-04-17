@@ -2,6 +2,8 @@ function getCurrentFilter(el) {
    return el.style.filter || window.getComputedStyle(el).filter || "none";
 }
 
+console.log(document.getElementById("posselect").value);
+
 const visibleChars = ["char-body", "char-clothes", "char-emotion", "char-accessory"];
 const exportChars = ["export-body", "export-clothes", "export-emotion", "export-accessory"];
 
@@ -19,17 +21,37 @@ function setBlur(value) {
    if (expBg) expBg.style.filter = filterStr;
 }
 
+const posMap = {
+   left: 20,
+   cl: 35,
+   center: 50,
+   cr: 65,
+   right: 80,
+};
+
 function setCharPos(value) {
    const allChars = [...visibleChars, ...exportChars];
 
-   allChars.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
+   if (isNaN(value)) {
+      allChars.forEach((id) => {
+         const el = document.getElementById(id);
+         if (!el) return;
+         el.style.transition = "all 0.3s ease";
+         el.style.left = posMap[value] + "%";
+         // const dkajhg = "80";
+         // el.style.transform = `translateX(${dkajhg}%)`;
+         el.style.transform = "translateX(-50%)";
+      });
+   } else {
+      allChars.forEach((id) => {
+         const el = document.getElementById(id);
+         if (!el) return;
 
-      el.style.left = "50%";
-      el.style.transition = "none";
-      el.style.transform = `translateX(-50%) translateX(${value}%)`;
-   });
+         el.style.left = "50%";
+         el.style.transition = "none";
+         el.style.transform = `translateX(-50%) translateX(${value}%)`;
+      });
+   }
 }
 
 const radios = document.querySelectorAll('input[name="spritetime"]');
@@ -133,7 +155,13 @@ async function exportImage() {
       }
 
       const centerX = WIDTH / 2 + (offsetPercent / 100) * widthPx;
-      const x = (centerX - widthPx / 2) * SCALE;
+      let x = "";
+      let posselect = document.getElementById("posselect").value;
+      if ($("posselect") !== "custom") {
+         x = posMap[posselect];
+      } else {
+         x = (centerX - widthPx / 2) * SCALE;
+      }
       const y = (HEIGHT - heightPx) * SCALE;
 
       ctx.drawImage(charImg, x, y, widthPx * SCALE, heightPx * SCALE);

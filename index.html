@@ -252,7 +252,8 @@
                               </div>
                            </div>
                            <div class="chpositionselect">
-                              <select class="form-select" onchange="setCharPos(this.value)">
+                              <select class="form-select" id="posselect" onchange="setCharPos(this.value)">
+                                 <option value="custom" disabled>Custom</option>
                                  <option value="left">Left</option>
                                  <option value="cl">Center-Left</option>
                                  <option value="center" selected>Center</option>
