@@ -5,12 +5,11 @@
 //    $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
 // });
 
-function toggleMenu() {
-   $("#sprite-style").slideToggle("slow", function () {});
-   $("#sprstylemaindiv").addClass("sprstylemaindiv2");
-   $("#sprstylemaindiv").removeClass("sprstylemaindiv1");
-   $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
-}
+// function toggleMenu() {
+//    $("#sprite-style").slideToggle("slow", function () {});
+//    $("#sprstylemaindiv").toggleClass("sprstylemaindiv2 sprstylemaindiv1");
+//    $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
+// }
 
 function toggleEditorMenu(id) {
    $(`#${id}-editor_content`).slideToggle("slow", function () {});
