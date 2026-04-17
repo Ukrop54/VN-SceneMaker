@@ -86,6 +86,35 @@ function setCharPos(value) {
    });
 }
 
+const radios = document.querySelectorAll('input[name="spritetime"]');
+
+const styleboxes = ["previewImage", "char-body", "char-clothes", "char-emotion", "char-accessory"];
+
+radios.forEach((radio) => {
+   radio.addEventListener("change", () => {
+      styleboxes.forEach((id) => {
+         const el = document.getElementById(id);
+         if (!el) return;
+
+         el.classList.forEach((cls) => {
+            if (cls.startsWith("filter-")) {
+               el.classList.remove(cls);
+            }
+         });
+
+         el.classList.add("filter-" + radio.value);
+      });
+   });
+});
+
+radios.forEach((radio) => {
+   radio.addEventListener("change", () => {
+      image.className = "img-fluid rounded";
+
+      image.classList.add("filter-" + radio.value);
+   });
+});
+
 function syncPreview() {
    html2canvas(document.getElementById("scene"), {
       scale: 0.3,

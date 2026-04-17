@@ -22,17 +22,6 @@ $("#sprstyle-select-header").on("click", function () {
    $("#show-sprstyle").toggleClass("bi-chevron-down bi-chevron-up");
 });
 
-const radios = document.querySelectorAll('input[name="spritetime"]');
-const image = document.getElementById("previewImage");
-
-radios.forEach((radio) => {
-   radio.addEventListener("change", () => {
-      image.className = "img-fluid rounded";
-
-      image.classList.add("filter-" + radio.value);
-   });
-});
-
 function workinprogress() {
    alert("This feature is still in development. Please check back later.");
 }
