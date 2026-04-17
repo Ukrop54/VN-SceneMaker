@@ -227,16 +227,25 @@ body::before {
    overflow: hidden;
 }
 
+/* #scene {
+   position: relative;
+   width: 1280px;
+   height: 720px;
+   overflow: hidden;
+   background: #000; 
+} */
+
 .container {
    padding: 0 !important;
 }
 
 #export-scene {
-   position: fixed;
-   left: -9999px;
-
+   position: relative;
    width: 1280px;
    height: 720px;
+   overflow: hidden;
+   left: -9999px;
+   background: transparent;
 }
 
 #export-scene img {

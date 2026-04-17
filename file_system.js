@@ -83,6 +83,7 @@ function renderBGGrid(container) {
       img.src = getBGPath(file);
       img.loading = "lazy";
       img.className = "bg-thumb";
+      img.crossOrigin = "anonymous";
 
       if (file === currentBgState.selected) {
          img.classList.add("selected");
