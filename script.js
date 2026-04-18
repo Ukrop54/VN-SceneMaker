@@ -16,9 +16,16 @@
 //    $(`#${id}_arrow`).toggleClass("bi-chevron-down bi-chevron-up");
 // }
 
-function toggleMenu(id) {
-   $(`#${id}-content`).slideToggle("slow", function () {});
-   $(`#${id}-arrow`).toggleClass("bi-chevron-down bi-chevron-up");
+function toggleEditorMenu(id) {
+   // $(`#${id}-content`).slideToggle("slow", function () {});
+   // $(`#${id}-arrow`).toggleClass("bi-chevron-down bi-chevron-up");
+   if (id.startsWith("body") || id.startsWith("clothes") || id.startsWith("decoration") || id.startsWith("emotion")) {
+      $(`#${id}-editor_content`).slideToggle("slow", function () {});
+      $(`#${id}_arrow`).toggleClass("bi-chevron-down bi-chevron-up");
+   } else if (id.startsWith("posselect") || id.startsWith("sprstyle")) {
+      $(`#${id}-content`).slideToggle("slow", function () {});
+      $(`#${id}-arrow`).toggleClass("bi-chevron-down bi-chevron-up");
+   }
 }
 
 // $("#sprstyle-select-header").on("click", function () {

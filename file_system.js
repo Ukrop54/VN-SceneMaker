@@ -302,12 +302,14 @@ function renderLeftPanel() {
    if (!currentState.bodyType) {
       // $(".sprite-editor").css({ display: "none" });
       $(".sprite-editor").hide();
+      $("#posslider").hide();
       return;
    }
 
    // $(".sprite-editor").slideToggle("slow", function () {});
    // $(".sprite-editor").css({ display: "block" });
    $(".sprite-editor").show();
+   $("#posslider").show();
 
    renderCategory("body", "#left-body", getAllBodies(), true);
    renderCategory("clothes", "#left-clothes", splitFiles().clothes);

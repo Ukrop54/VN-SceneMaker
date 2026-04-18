@@ -175,9 +175,9 @@ async function exportImage() {
 window.addEventListener("load", () => {
    // const posHeader = document.getElementById("posselect-header");
    // const posContent = document.getElementById("posselect-content");
-   // const posCurrent = document.getElementById("pos-current");
+   const posCurrent = document.getElementById("pos-current");
    // const posArrow = document.getElementById("pos-arrow");
-   // const posOptions = document.querySelectorAll("#posselect-content .character-option");
+   const posOptions = document.querySelectorAll("#posselect-content .character-option");
 
    // if (posHeader) {
    //    posHeader.addEventListener("click", () => {
@@ -188,22 +188,22 @@ window.addEventListener("load", () => {
    //    });
    // }
 
-   // posOptions.forEach((opt) => {
-   //    opt.addEventListener("click", () => {
-   //       posOptions.forEach((o) => o.classList.remove("selected"));
-   //       opt.classList.add("selected");
-   //       posCurrent.textContent = opt.textContent;
+   posOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+         posOptions.forEach((o) => o.classList.remove("selected"));
+         opt.classList.add("selected");
+         posCurrent.textContent = opt.textContent;
 
-   //       setCharPos(opt.dataset.value);
+         setCharPos(opt.dataset.value);
 
-   //       const slider = document.getElementById("posslider");
-   //       if (slider) slider.value = 0;
+         const slider = document.getElementById("posslider");
+         if (slider) slider.value = 0;
 
-   //       posContent.style.display = "none";
-   //       posArrow.classList.add("bi-chevron-down");
-   //       posArrow.classList.remove("bi-chevron-up");
-   //    });
-   // });
+         // posContent.style.display = "none";
+         // posArrow.classList.add("bi-chevron-down");
+         // posArrow.classList.remove("bi-chevron-up");
+      });
+   });
 
    const styleOptions = document.querySelectorAll("#sprite-time .character-option");
 
