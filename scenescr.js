@@ -20,23 +20,11 @@ const bgfilters = {
    grayed: "grayscale(1) saturate(0)",
    negative: "invert(1)",
 };
-
 function setBackgroundFilter(value) {
-   // const scenes = ["scene", "export-scene"];
-   // scenes.forEach((id) => {
-   //    const el = document.getElementById(id);
-   //    if (!el) return;
-   //    el.classList.forEach((cls) => {
-   //       if (cls.startsWith("bgfilter-")) el.classList.remove(cls);
-   //    });
-   //    el.classList.add("bgfilter-" + value);
-   // });
-   if (value) {
-      document.getElementById("bg").style.filter = bgfilters.value;
-
-      const expBg = document.getElementById("export-bg");
-      if (expBg) expBg.style.filter = filterStr;
-   }
+   const filterStr = bgfilters[value] || "";
+   document.getElementById("bg").style.filter = filterStr;
+   const expBg = document.getElementById("export-bg");
+   if (expBg) expBg.style.filter = filterStr;
 }
 
 function setBlur(value) {
