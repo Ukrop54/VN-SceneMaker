@@ -2,8 +2,6 @@ function getCurrentFilter(el) {
    return el.style.filter || window.getComputedStyle(el).filter || "none";
 }
 
-console.log(document.getElementById("posselect").value);
-
 const visibleChars = ["char-body", "char-clothes", "char-emotion", "char-accessory"];
 const exportChars = ["export-body", "export-clothes", "export-emotion", "export-accessory"];
 
@@ -29,26 +27,36 @@ const posMap = {
    right: 80,
 };
 
+function parseTranslatePercent(transformStr) {
+   if (!transformStr) return -50;
+   const regex = /translateX\((-?[\d.]+)%\)/g;
+   let total = 0;
+   let match;
+   while ((match = regex.exec(transformStr)) !== null) {
+      total += parseFloat(match[1]);
+   }
+   return total;
+}
+
 function setCharPos(value) {
    const allChars = [...visibleChars, ...exportChars];
 
    if (isNaN(value)) {
+      // === ПРЕСЕТЫ (right, cr, center, left и т.д.)
       allChars.forEach((id) => {
          const el = document.getElementById(id);
          if (!el) return;
          el.style.transition = "all 0.3s ease";
          el.style.left = posMap[value] + "%";
-         // const dkajhg = "80";
-         // el.style.transform = `translateX(${dkajhg}%)`;
          el.style.transform = "translateX(-50%)";
       });
    } else {
+      // === ПОЛЗУНОК (числовой offset от центра)
       allChars.forEach((id) => {
          const el = document.getElementById(id);
          if (!el) return;
-
          el.style.left = "50%";
-         el.style.transition = "none";
+         el.style.transition = "none"; // мгновенное перемещение при перетаскивании ползунка
          el.style.transform = `translateX(-50%) translateX(${value}%)`;
       });
    }
@@ -144,24 +152,19 @@ async function exportImage() {
          charImg.src = char.src;
       });
 
-      const transformStr = char.style.transform || "translateX(-50%)";
       const widthPx = parseFloat(char.style.width) || 600;
       const heightPx = parseFloat(char.style.height) || 720;
 
-      let offsetPercent = 0;
-      const match = transformStr.match(/translateX\(-50%\) translateX\((-?\d+(?:\.\d+)?)%\)/);
-      if (match) {
-         offsetPercent = parseFloat(match[1]);
-      }
+      const transformStr = char.style.transform || "translateX(-50%)";
+      const totalTransPct = parseTranslatePercent(transformStr);
 
-      const centerX = WIDTH / 2 + (offsetPercent / 100) * widthPx;
-      let x = "";
-      let posselect = document.getElementById("posselect").value;
-      if ($("posselect") !== "custom") {
-         x = posMap[posselect];
-      } else {
-         x = (centerX - widthPx / 2) * SCALE;
-      }
+      const leftStr = char.style.left || "50%";
+      const leftPct = parseFloat(leftStr) || 50;
+
+      const baseX = (leftPct / 100) * WIDTH;
+      const offsetX = (totalTransPct / 100) * widthPx;
+      const x = (baseX + offsetX) * SCALE;
+
       const y = (HEIGHT - heightPx) * SCALE;
 
       ctx.drawImage(charImg, x, y, widthPx * SCALE, heightPx * SCALE);
@@ -174,3 +177,34 @@ async function exportImage() {
    link.href = canvas.toDataURL("image/png", 1.0);
    link.click();
 }
+
+const posSelectEl = document.getElementById("posselect");
+if (posSelectEl) {
+   posSelectEl.addEventListener("change", () => {
+      const value = posSelectEl.value;
+      if (value) {
+         setCharPos(value); // перемещение по пресетам (right, cr, center…)
+         // сбрасываем ползунок в 0 при выборе пресета (удобно)
+         const slider = document.getElementById("posslider");
+         if (slider) slider.value = 0;
+      }
+   });
+}
+
+const posSlider = document.getElementById("posslider");
+if (posSlider) {
+   posSlider.addEventListener("input", () => {
+      const value = parseFloat(posSlider.value);
+      if (!isNaN(value)) {
+         setCharPos(value);
+         // posSelectEl.value = "Custom";
+         posSelectEl.selectedIndex = "0";
+      }
+   });
+}
+
+// Инициализация при загрузке (на всякий случай)
+window.addEventListener("load", () => {
+   const initialPos = document.getElementById("posselect")?.value;
+   if (initialPos) setCharPos(initialPos);
+});
