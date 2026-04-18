@@ -431,6 +431,13 @@ body::before {
 .filter-dream {
    filter: blur(2px) brightness(1.2);
 }
+.filter-shadow {
+   filter: brightness(0%) opacity(25%) blur(10px);
+}
+
+.filter-black {
+   filter: brightness(0%);
+}
 
 /* .character-option {
    padding: 10px 14px;
