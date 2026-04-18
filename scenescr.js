@@ -12,6 +12,33 @@ function setBackground(file) {
    if (expBg) expBg.src = path;
 }
 
+const bgfilters = {
+   none: "",
+   sepia: "sepia(1)",
+   vintage: "blur(0.05rem) saturate(0.7) contrast(1.5) brightness(1.2)",
+   rain: "brightness(0.7) saturate(0.8)",
+   grayed: "grayscale(1) saturate(0)",
+   negative: "invert(1)",
+};
+
+function setBackgroundFilter(value) {
+   // const scenes = ["scene", "export-scene"];
+   // scenes.forEach((id) => {
+   //    const el = document.getElementById(id);
+   //    if (!el) return;
+   //    el.classList.forEach((cls) => {
+   //       if (cls.startsWith("bgfilter-")) el.classList.remove(cls);
+   //    });
+   //    el.classList.add("bgfilter-" + value);
+   // });
+   if (value) {
+      document.getElementById("bg").style.filter = bgfilters.value;
+
+      const expBg = document.getElementById("export-bg");
+      if (expBg) expBg.style.filter = filterStr;
+   }
+}
+
 function setBlur(value) {
    const filterStr = `blur(${value}px)`;
    document.getElementById("bg").style.filter = filterStr;
@@ -72,6 +99,18 @@ function setSpriteFilter(value) {
    });
 }
 
+// function setBackgroundFilter(value) {
+//    const scenes = ["scene", "export-scene"];
+//    scenes.forEach((id) => {
+//       const el = document.getElementById(id);
+//       if (!el) return;
+//       el.classList.forEach((cls) => {
+//          if (cls.startsWith("bgfilter-")) el.classList.remove(cls);
+//       });
+//       el.classList.add("bgfilter-" + value);
+//    });
+// }
+
 function syncPreview() {
    html2canvas(document.getElementById("scene"), { scale: 0.3 }).then((canvas) => {
       document.getElementById("previewImage").src = canvas.toDataURL();
@@ -130,7 +169,7 @@ async function exportImage() {
       });
       ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
    }
-   ctx.filter = "none";
+   // ctx.filter = "none";
 
    const charFilter = getCurrentFilter(document.getElementById("export-body"));
    ctx.filter = charFilter;
