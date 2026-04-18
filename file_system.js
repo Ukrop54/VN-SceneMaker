@@ -70,7 +70,6 @@ function paginate(files, page = 0) {
 }
 
 function renderBGGrid(container) {
-   // const files = paginate(getBgFiles());
    const files = paginate(getBgFiles(), currentBgState.page);
 
    container.innerHTML = "";
@@ -300,16 +299,16 @@ function isAccessory(file) {
 
 function renderLeftPanel() {
    if (!currentState.bodyType) {
-      // $(".sprite-editor").css({ display: "none" });
       $(".sprite-editor").hide();
       $("#posslider").hide();
+      $("#preview-scene-container").hide();
+      $("#addcharacter").show();
       return;
    }
-
-   // $(".sprite-editor").slideToggle("slow", function () {});
-   // $(".sprite-editor").css({ display: "block" });
    $(".sprite-editor").show();
    $("#posslider").show();
+   $("#preview-scene-container").show();
+   $("#addcharacter").hide();
 
    renderCategory("body", "#left-body", getAllBodies(), true);
    renderCategory("clothes", "#left-clothes", splitFiles().clothes);
