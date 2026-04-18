@@ -121,13 +121,6 @@
                         />
                      </div>
                      <div class="row row-cols-2">
-                        <!-- <div class="col sprstylemaindiv1" id="sprstylemaindiv" style="border: 1px solid #a4a4a460; border-radius: 5px"> -->
-                        <!-- <p style="margin: auto; position: relative; top: 10%; font-size: medium">Style:</p> -->
-                        <!-- <i
-                                    class="bi bi-chevron-down"
-                                    style="position: relative; left: 95%; bottom: 50%; cursor: pointer"
-                                    id="show-sprstyle"
-                                 ></i> -->
                         <div class="col">
                            <div class="sprite-editor" id="body-editor-div">
                               <div class="sprite-editor-header" onclick="toggleEditorMenu('body')">
@@ -157,72 +150,20 @@
                                  <i class="bi bi-chevron-down" id="show-sprstyle"></i>
                               </div>
                               <div class="sprstyle-content" id="sprstyle-content" style="display: none">
-                                 <div class="row">
-                                    <div class="col">
-                                       <div class="sprite-time" id="sprite-time">
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="sunset" id="sunset" />
-                                             <label class="form-check-label" for="sunset">Sunset</label>
-                                          </div>
-
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="day" id="day" checked />
-                                             <label class="form-check-label" for="day">Day</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="night" id="night" />
-                                             <label class="form-check-label" for="night">Night</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="epilogue" id="epilogue" />
-                                             <label class="form-check-label" for="epilogue">Epilogue</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="desat" id="desat" />
-                                             <label class="form-check-label" for="desat">Desaturated</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="rain" id="rain" />
-                                             <label class="form-check-label" for="rain">Rain</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="sepia" id="sepia" />
-                                             <label class="form-check-label" for="sepia">Sepia</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="noir" id="noir" />
-                                             <label class="form-check-label" for="noir">Noir</label>
-                                          </div>
-
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="shade" id="shade" />
-                                             <label class="form-check-label" for="shade">Shade</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="fire" id="fire" />
-                                             <label class="form-check-label" for="fire">Fire</label>
-                                          </div>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="radio" name="spritetime" value="dream" id="dream" />
-                                             <label class="form-check-label" for="dream">Dream</label>
-                                          </div>
-                                       </div>
-                                       <!-- dadwd -->
-                                    </div>
-                                    <div class="col">
-                                       <div
-                                          class="col d-flex align-items-center justify-content-center"
-                                          style="margin: 5%; justify-content: center; height: 100%"
-                                       >
-                                          <img
-                                             id="previewImage"
-                                             src="https://picsum.photos/400/600"
-                                             class="img-fluid rounded"
-                                             alt="preview"
-                                             style="border: 1px solid #a4a4a4"
-                                          />
-                                       </div>
-                                    </div>
+                                 <div class="sprite-time" id="sprite-time" style="columns: 2rem 2">
+                                    <div class="character-option" data-value="sunset">Sunset</div>
+                                    <div class="character-option" data-value="day">Day</div>
+                                    <div class="character-option" data-value="night">Night</div>
+                                    <div class="character-option" data-value="epilogue">Epilogue</div>
+                                    <div class="character-option" data-value="desat">Desaturated</div>
+                                    <div class="character-option" data-value="rain">Rain</div>
+                                    <div class="character-option" data-value="sepia">Sepia</div>
+                                    <div class="character-option" data-value="noir">Noir</div>
+                                    <div class="character-option" data-value="shade">Shade</div>
+                                    <div class="character-option" data-value="fire">Fire</div>
+                                    <div class="character-option" data-value="dream">Dream</div>
+                                    <div class="character-option" data-value="shadow">Shadow</div>
+                                    <div class="character-option" data-value="black">Black</div>
                                  </div>
                               </div>
                            </div>
@@ -252,15 +193,18 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="chpositionselect">
-                              <select class="form-select" id="posselect" onchange="setCharPos(this.value)">
-                                 <option value="custom" disabled>Custom</option>
-                                 <option value="left">Left</option>
-                                 <option value="cl">Center-Left</option>
-                                 <option value="center" selected>Center</option>
-                                 <option value="cr">Center-Right</option>
-                                 <option value="right">Right</option>
-                              </select>
+                           <div class="sprstyle-select-box" id="posselect-box">
+                              <div class="sprstyle-select-header" id="posselect-header">
+                                 <span id="pos-current">Center</span>
+                                 <i class="bi bi-chevron-down" id="pos-arrow"></i>
+                              </div>
+                              <div class="sprstyle-content" id="posselect-content" style="display: none">
+                                 <div class="character-option" data-value="left">Left</div>
+                                 <div class="character-option" data-value="cl">Center-Left</div>
+                                 <div class="character-option selected" data-value="center">Center</div>
+                                 <div class="character-option" data-value="cr">Center-Right</div>
+                                 <div class="character-option" data-value="right">Right</div>
+                              </div>
                            </div>
                         </div>
                      </div>

@@ -60,21 +60,17 @@ function setCharPos(value) {
    }
 }
 
-const radios = document.querySelectorAll('input[name="spritetime"]');
-const styleboxes = ["previewImage", ...visibleChars, ...exportChars];
-
-radios.forEach((radio) => {
-   radio.addEventListener("change", () => {
-      styleboxes.forEach((id) => {
-         const el = document.getElementById(id);
-         if (!el) return;
-         el.classList.forEach((cls) => {
-            if (cls.startsWith("filter-")) el.classList.remove(cls);
-         });
-         el.classList.add("filter-" + radio.value);
+function setSpriteFilter(value) {
+   const styleboxes = ["previewImage", ...visibleChars, ...exportChars];
+   styleboxes.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.forEach((cls) => {
+         if (cls.startsWith("filter-")) el.classList.remove(cls);
       });
+      el.classList.add("filter-" + value);
    });
-});
+}
 
 function syncPreview() {
    html2canvas(document.getElementById("scene"), { scale: 0.3 }).then((canvas) => {
@@ -176,31 +172,69 @@ async function exportImage() {
    link.click();
 }
 
-const posSelectEl = document.getElementById("posselect");
-if (posSelectEl) {
-   posSelectEl.addEventListener("change", () => {
-      const value = posSelectEl.value;
-      if (value) {
-         setCharPos(value);
-         const slider = document.getElementById("posslider");
-         if (slider) slider.value = 0;
-      }
-   });
-}
-
-const posSlider = document.getElementById("posslider");
-if (posSlider) {
-   posSlider.addEventListener("input", () => {
-      const value = parseFloat(posSlider.value);
-      if (!isNaN(value)) {
-         setCharPos(value);
-         // posSelectEl.value = "Custom";
-         posSelectEl.selectedIndex = "0";
-      }
-   });
-}
-
 window.addEventListener("load", () => {
-   const initialPos = document.getElementById("posselect")?.value;
-   if (initialPos) setCharPos(initialPos);
+   // const posHeader = document.getElementById("posselect-header");
+   // const posContent = document.getElementById("posselect-content");
+   // const posCurrent = document.getElementById("pos-current");
+   // const posArrow = document.getElementById("pos-arrow");
+   // const posOptions = document.querySelectorAll("#posselect-content .character-option");
+
+   // if (posHeader) {
+   //    posHeader.addEventListener("click", () => {
+   //       const isHidden = posContent.style.display === "none";
+   //       posContent.style.display = isHidden ? "block" : "none";
+   //       posArrow.classList.toggle("bi-chevron-down", !isHidden);
+   //       posArrow.classList.toggle("bi-chevron-up", isHidden);
+   //    });
+   // }
+
+   // posOptions.forEach((opt) => {
+   //    opt.addEventListener("click", () => {
+   //       posOptions.forEach((o) => o.classList.remove("selected"));
+   //       opt.classList.add("selected");
+   //       posCurrent.textContent = opt.textContent;
+
+   //       setCharPos(opt.dataset.value);
+
+   //       const slider = document.getElementById("posslider");
+   //       if (slider) slider.value = 0;
+
+   //       posContent.style.display = "none";
+   //       posArrow.classList.add("bi-chevron-down");
+   //       posArrow.classList.remove("bi-chevron-up");
+   //    });
+   // });
+
+   const styleOptions = document.querySelectorAll("#sprite-time .character-option");
+
+   styleOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+         styleOptions.forEach((o) => o.classList.remove("selected"));
+         opt.classList.add("selected");
+         setSpriteFilter(opt.dataset.value);
+      });
+   });
+   const initialPosOption = document.querySelector("#posselect-content .character-option.selected");
+   if (initialPosOption) {
+      posCurrent.textContent = initialPosOption.textContent;
+      setCharPos(initialPosOption.dataset.value);
+   }
+
+   const initialStyleOption = document.querySelector("#sprite-time .character-option.selected");
+   if (initialStyleOption) {
+      setSpriteFilter(initialStyleOption.dataset.value);
+   }
+
+   const posSlider = document.getElementById("posslider");
+   if (posSlider) {
+      posSlider.addEventListener("input", () => {
+         const value = parseFloat(posSlider.value);
+         if (!isNaN(value)) {
+            setCharPos(value);
+
+            posCurrent.textContent = "Custom";
+            posOptions.forEach((o) => o.classList.remove("selected"));
+         }
+      });
+   }
 });
