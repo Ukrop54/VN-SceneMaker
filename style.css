@@ -434,7 +434,6 @@ body::before {
 .filter-shadow {
    filter: brightness(0%) opacity(25%) blur(10px);
 }
-
 .filter-black {
    filter: brightness(0%);
 }

@@ -42,7 +42,6 @@ function setCharPos(value) {
    const allChars = [...visibleChars, ...exportChars];
 
    if (isNaN(value)) {
-      // === ПРЕСЕТЫ (right, cr, center, left и т.д.)
       allChars.forEach((id) => {
          const el = document.getElementById(id);
          if (!el) return;
@@ -51,12 +50,11 @@ function setCharPos(value) {
          el.style.transform = "translateX(-50%)";
       });
    } else {
-      // === ПОЛЗУНОК (числовой offset от центра)
       allChars.forEach((id) => {
          const el = document.getElementById(id);
          if (!el) return;
          el.style.left = "50%";
-         el.style.transition = "none"; // мгновенное перемещение при перетаскивании ползунка
+         el.style.transition = "none";
          el.style.transform = `translateX(-50%) translateX(${value}%)`;
       });
    }
@@ -183,8 +181,7 @@ if (posSelectEl) {
    posSelectEl.addEventListener("change", () => {
       const value = posSelectEl.value;
       if (value) {
-         setCharPos(value); // перемещение по пресетам (right, cr, center…)
-         // сбрасываем ползунок в 0 при выборе пресета (удобно)
+         setCharPos(value);
          const slider = document.getElementById("posslider");
          if (slider) slider.value = 0;
       }
@@ -203,7 +200,6 @@ if (posSlider) {
    });
 }
 
-// Инициализация при загрузке (на всякий случай)
 window.addEventListener("load", () => {
    const initialPos = document.getElementById("posselect")?.value;
    if (initialPos) setCharPos(initialPos);
