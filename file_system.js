@@ -305,10 +305,10 @@ function renderLeftPanel() {
       $("#addcharacter").show();
       return;
    }
-   $(".sprite-editor").show();
-   $("#posslider").show();
-   $("#preview-scene-container").show();
-   $("#addcharacter").hide();
+   $(".sprite-editor").show("slow");
+   $("#posslider").show("slow");
+   $("#preview-scene-container").show("slow");
+   $("#addcharacter").hide("slow");
 
    renderCategory("body", "#left-body", getAllBodies(), true);
    renderCategory("clothes", "#left-clothes", splitFiles().clothes);
