@@ -232,6 +232,7 @@ function isEmotion(file) {
       "shocked",
       "rage",
       "happy",
+      "sorrow",
    ];
    return emotions.some((e) => file.includes("_" + e));
 }
