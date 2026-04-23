@@ -236,6 +236,86 @@ function isEmotion(file) {
       "unsured",
       "dontcare",
       "evil",
+      "_1_a",
+      "_1_b",
+      "_1_c",
+      "_1_d",
+      "_1_e",
+      "_1_f",
+      "_1_g",
+      "_1_h",
+      "_1_i",
+      "_1_j",
+      "_1_k",
+      "_1_l",
+      "_1_m",
+      "_1_n",
+      "_1_o",
+      "_1_p",
+      "_1_q",
+      "_1_r",
+      "_1_s",
+      "_1_t",
+      "_1_u",
+      "_1_v",
+      "_1_w",
+      "_1_x",
+      "_1_y",
+      "_1_z",
+      "_2_a",
+      "_2_b",
+      "_2_c",
+      "_2_d",
+      "_2_e",
+      "_2_f",
+      "_2_g",
+      "_2_h",
+      "_2_i",
+      "_2_j",
+      "_2_k",
+      "_2_l",
+      "_2_m",
+      "_2_n",
+      "_2_o",
+      "_2_p",
+      "_2_q",
+      "_2_r",
+      "_2_s",
+      "_2_t",
+      "_2_u",
+      "_2_v",
+      "_2_w",
+      "_2_x",
+      "_2_y",
+      "_2_z",
+      "_1_a",
+      "_3_b",
+      "_3_c",
+      "_3_d",
+      "_3_e",
+      "_3_f",
+      "_3_g",
+      "_3_h",
+      "_3_i",
+      "_3_j",
+      "_3_k",
+      "_3_l",
+      "_3_m",
+      "_3_n",
+      "_3_o",
+      "_3_p",
+      "_3_q",
+      "_3_r",
+      "_3_s",
+      "_3_t",
+      "_3_u",
+      "_3_v",
+      "_3_w",
+      "_3_x",
+      "_3_y",
+      "_3_z",
+      "hitler",
+      "hitler2",
    ];
    return emotions.some((e) => file.includes("_" + e));
 }
@@ -320,10 +400,21 @@ function renderLeftPanel() {
    renderCategory("accessory", "#left-decor", splitFiles().accessories);
 }
 
+// function getAllBodies() {
+//    const files = getFiles();
+
+//    const bodies = files.filter((f) => f.includes("_body"));
+//    if (bodies.length > 0) return bodies;
+
+//    const bases = [...new Set(files.map((f) => f.split("_").slice(0, 2).join("_")))];
+
+//    return bases.map((b) => b + "_body");
+// }
+
 function getAllBodies() {
    const files = getFiles();
 
-   const bodies = files.filter((f) => f.includes("_body"));
+   const bodies = files.filter((f) => f.includes("body"));
    if (bodies.length > 0) return bodies;
 
    const bases = [...new Set(files.map((f) => f.split("_").slice(0, 2).join("_")))];
