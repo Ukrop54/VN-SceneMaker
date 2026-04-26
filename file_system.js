@@ -236,6 +236,8 @@ function isEmotion(file) {
       "unsured",
       "dontcare",
       "evil",
+      "cute",
+      "irrated",
       "_1_a",
       "_1_b",
       "_1_c",
