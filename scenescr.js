@@ -138,7 +138,7 @@ async function exportImage() {
 
    const WIDTH = 1280;
    const HEIGHT = 720;
-   const SCALE = 2;
+   const SCALE = 1;
 
    const canvas = document.createElement("canvas");
    canvas.width = WIDTH * SCALE;

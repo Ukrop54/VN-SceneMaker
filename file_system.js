@@ -237,7 +237,7 @@ function isEmotion(file) {
       "dontcare",
       "evil",
       "cute",
-      "irrated",
+      "irritated",
       "_1_a",
       "_1_b",
       "_1_c",
@@ -505,6 +505,7 @@ function render() {
       Object.keys(FS[currentState.game][currentState.mod]).forEach((pos) => {
          addItem(container, "Position: " + pos, () => {
             currentState.position = pos;
+
             step = "character";
             render();
          });
