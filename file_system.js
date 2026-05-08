@@ -457,7 +457,7 @@ function bgback(container) {
 }
 
 function isAccessory(file) {
-   const acc = ["glasses", "hat", "cap", "panama", "stethoscope", "watch", "bag"];
+   const acc = ["glasses", "hat", "cap", "panama", "stethoscope", "watch", "bag", "headofpih"];
    return acc.some((a) => file.includes("_" + a));
 }
 
@@ -562,10 +562,10 @@ document.getElementById("chchoosemodal").addEventListener("shown.bs.modal", () =
 function render() {
    const container = document.getElementById("sprite-explorer");
    container.innerHTML = "";
-
+   step != "exit" ? $("#currentstepbox").html(step) : "";
    if (step === "game") {
       Object.keys(FS).forEach((game) => {
-         addItem(container, "Game: " + game, () => {
+         addItem(container, game, () => {
             currentState.game = game;
             step = "mod";
             render();
@@ -573,7 +573,7 @@ function render() {
       });
    } else if (step === "mod") {
       Object.keys(FS[currentState.game]).forEach((mod) => {
-         addItem(container, "Mod: " + mod, () => {
+         addItem(container, mod, () => {
             currentState.mod = mod;
             step = "position";
             render();
@@ -582,7 +582,7 @@ function render() {
       });
    } else if (step === "position") {
       Object.keys(FS[currentState.game][currentState.mod]).forEach((pos) => {
-         addItem(container, "Position: " + pos, () => {
+         addItem(container, pos, () => {
             currentState.position = pos;
 
             step = "character";
@@ -595,7 +595,7 @@ function render() {
          // let scnamescont = [`${modid}_scnames`];
          let chname = prnames[ch] || scnames[modid]?.[ch] || ch;
 
-         addItem(container, "Character: " + chname, () => {
+         addItem(container, chname, () => {
             resetCharacterLayers();
             currentState.character = ch;
             step = "body";
