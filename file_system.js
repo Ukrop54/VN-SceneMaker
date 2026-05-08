@@ -1,6 +1,38 @@
 let FS = {};
 let BGFS = {};
 
+const prnames = {
+   cs: "Виола",
+   dv: "Алиса",
+   el: "Электроник",
+   mi: "Мику",
+   mt: "Ольга",
+   mz: "Женя",
+   pi: "Пионер",
+   sh: "Шурик",
+   sl: "Славя",
+   un: "Лена",
+   us: "Ульяна",
+   uv: "Юля",
+};
+
+let scnames = {
+   ion: {
+      al: "Алконер",
+   },
+   sdl: {
+      al: "Алька",
+   },
+};
+
+let modlist = {
+   sdl: "7 Дней Лета Complete Edition",
+   chistovik: "Чистовик (DDLC + БЛ)",
+   ion: "История Одного Неудачника (ИОН)",
+};
+
+let modid;
+
 document.getElementById("bgchoosemodal").addEventListener("shown.bs.modal", () => {
    bgStep = "game";
    renderBGSelector();
@@ -499,6 +531,7 @@ function render() {
             currentState.mod = mod;
             step = "position";
             render();
+            modid = Object.keys(modlist).find((key) => modlist[key] === currentState.mod);
          });
       });
    } else if (step === "position") {
@@ -512,12 +545,19 @@ function render() {
       });
    } else if (step === "character") {
       Object.keys(FS[currentState.game][currentState.mod][currentState.position]).forEach((ch) => {
-         addItem(container, "Character: " + ch, () => {
+         // window.currentState.mod ?
+         // let scnamescont = [`${modid}_scnames`];
+         let chname = prnames[ch] || scnames[modid]?.[ch] || ch;
+
+         addItem(container, "Character: " + chname, () => {
             resetCharacterLayers();
             currentState.character = ch;
             step = "body";
             render();
          });
+
+         // console.log(defnames[prer]);
+         // console.log(chname);
       });
    } else if (step === "body") {
       const bodies = getAllBodies();
